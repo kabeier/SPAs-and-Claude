@@ -64,7 +64,7 @@
   <aside class="notes">
     <p><b>Warm-up (2 min):</b> open KSPA traditional. Hit Listen live, type in Request a song, click Home. The timer resets, text is gone, and the "documents loaded" counter goes up. Then the SPA version: the music keeps going, the text survives, and the document timestamp never changes. "Same site. The only difference is how navigation works."</p>
     <p><b>Lineup (4 min):</b> go down the table. For each site, do the action, count down, then everyone answers. For 2–3 of them open <b>DevTools → Network → Doc</b> and click a link. A new row means a full page load.</p>
-    <p>Good moments: the <b>curriculum site</b> is traditional (MkDocs static pages). <b>GitHub</b> is a hybrid, which leads to "it's a spectrum, not a binary." <b>Netflix</b> is the homework clone.</p>
+    <p>Good moments: the <b>curriculum site</b> is traditional (MkDocs static pages). <b>GitHub</b> is mostly a SPA now (Issues, PRs and Code tabs load no new document), but a few pages still full-load: "it's a spectrum, not a binary." <b>Netflix</b> is the homework clone.</p>
     <p>Press <b>K</b> on that page to show verdicts.</p>
   </aside>
 </section>
@@ -210,7 +210,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
 └── ...</pre>
   </div>
   <aside class="notes">
-    <p><b>Heads up, curriculum bug:</b> on the course page, the curl commands for UI UX Pro Max and Design Motion return <b>404</b>, and even the working ones only grab SKILL.md, leaving out the data/references folders the skill relies on. Teach it as "a skill is a <b>folder</b>, not a file." Give students <code>demo-kit/setup-skills.sh</code> (tested), which clones all four complete.</p>
+    <p>Teach it as "a skill is a <b>folder</b>, not a file": several of these ship data/, references/ or assets/ folders alongside SKILL.md. <code>demo-kit/setup-skills.sh</code> (tested) clones all four complete folders in one go.</p>
     <p>Run <code>/skills</code> live to show they loaded.</p>
   </aside>
 </section>
@@ -329,7 +329,7 @@ You are a Senior Front-End Engineer…</pre>
     </div>
   </div>
   <aside class="notes">
-    <p>Full file: demo-kit/.claude/agents/front-end-agent.md. The curriculum version lists <code>taste-skill</code>, but subagents preload skills by their <b>name</b> field, which is <code>design-taste-frontend</code>. Claude Code silently ignores names it can't match.</p>
+    <p>Full file: demo-kit/.claude/agents/front-end-agent.md. Subagents preload skills by the <b>name</b> field inside each SKILL.md. The Taste skill's folder is <code>taste-skill</code> but its name is <code>design-taste-frontend</code>, so that's what goes in the list.</p>
   </aside>
 </section>
 
@@ -342,8 +342,7 @@ You are a Senior Front-End Engineer…</pre>
   </ol>
   <p class="bottomline">Checklist: skills folder ✓ · MCPs connected ✓ · app_outline ✓ · phases approved ✓ · pushed to GitHub ✓</p>
   <aside class="notes">
-    <p>Note: the assignments page says "JavaScript Certification: complete 100 steps for receiving your Python Certification." It's a typo; it means JavaScript.</p>
-    <p>Share demo-kit/setup-skills.sh in Slack so students don't hit the 404s.</p>
+    <p>Point students at the "Set up Claude Code" section of the class site for setup-skills.sh and setup-mcps.sh.</p>
   </aside>
 </section>
 

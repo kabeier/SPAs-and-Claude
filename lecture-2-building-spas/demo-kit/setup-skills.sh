@@ -2,11 +2,11 @@
 # Installs the 4 design skills from Lecture 2 into ./.claude/skills/ of the current project.
 # Run from your project root:   bash setup-skills.sh
 #
-# Why not just curl SKILL.md (as the curriculum page shows)?
-#  - Two of those URLs 404 (UI UX Pro Max, Design Motion Principles).
-#  - Three of the skills ship supporting folders (data/, references/, assets/) that a
-#    single-file curl silently leaves behind. A skill is a FOLDER, not just a file.
+# A skill is a FOLDER, not just a file: three of these ship supporting folders
+# (data/, references/, assets/) next to SKILL.md, so this clones each complete folder.
 set -euo pipefail
+
+command -v git >/dev/null || { echo "git is not installed. macOS: run  xcode-select --install   WSL/Ubuntu: sudo apt install git"; exit 1; }
 
 DEST=".claude/skills"
 TMP="$(mktemp -d)"
@@ -16,8 +16,9 @@ mkdir -p "$DEST"
 grab() { # grab <github-owner/repo> <path-inside-repo> <skill-name>
   local repo="$1" src="$2" name="$3"
   echo "→ $name  ($repo/$src)"
-  git clone --quiet --depth 1 --filter=blob:none --sparse "https://github.com/$repo.git" "$TMP/$name"
-  git -C "$TMP/$name" sparse-checkout set "$src" >/dev/null
+  # Download only the skill's folder (plain clone + path checkout works on old and new git alike)
+  git clone --quiet --depth 1 --filter=blob:none --no-checkout "https://github.com/$repo.git" "$TMP/$name"
+  git -C "$TMP/$name" checkout --quiet HEAD -- "$src"
   rm -rf "$DEST/$name"
   cp -R "$TMP/$name/$src" "$DEST/$name"
   test -f "$DEST/$name/SKILL.md" || { echo "   ✗ SKILL.md missing for $name"; exit 1; }

@@ -36,6 +36,8 @@
   .gallery img { width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; display: block; }
   .gallery figcaption { font-size: 15px; padding: 6px 2px 0; display: flex; justify-content: space-between; gap: 8px; }
   .gallery figcaption a { color: var(--blue); }
+  .cmdhelp { margin: 0 0 8px; color: var(--muted); }
+  pre.cmd { background: var(--ink); color: #fff; padding: 16px 18px; border-radius: 4px; overflow-x: auto; margin: 0 0 16px; font-size: 15px; }
   footer { margin-top: 56px; color: var(--muted); font-size: 16px; }
   a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { a.slides { transition: none; } }
@@ -71,6 +73,8 @@
   </div>
 
   <h3>Set up Claude Code for the homework</h3>
+  <p class="cmdhelp">Install all four design skills: open a terminal in your project folder (macOS Terminal, Linux, or WSL on Windows) and paste:</p>
+  <pre class="cmd"><code>curl -fsSL https://kabeier.github.io/SPAs-and-Claude/lecture-2-building-spas/demo-kit/setup-skills.sh | bash</code></pre>
   <ol class="kit">
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/setup-skills.sh" target="_blank" rel="noopener"><b>setup-skills.sh</b><span>Installs all four design skills, complete.</span></a></li>
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/setup-mcps.sh" target="_blank" rel="noopener"><b>setup-mcps.sh</b><span>Adds the Playwright, Context7 and Chrome DevTools MCPs.</span></a></li>

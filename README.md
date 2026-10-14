@@ -107,13 +107,5 @@ Your existing SPA vs traditional tldraw drops in at Lecture 2, slide 3 (the note
 - [ ] Dry-run the prompt once so you know how long phase 1 takes on your machine, then reset to the scaffold commit
 - [ ] `cd demo-kit/backup-liftlog && npm install && npm run dev`: confirm the backup runs
 - [ ] Open both decks, press **P**, and check the presenter window shows notes
-- [ ] Post `demo-kit/setup-skills.sh` in Slack for students (see below)
-- [ ] Optional: host the three activity folders somewhere students can click (e.g. a GitHub Pages repo) so they can try the Crime Scene exhibits themselves. Otherwise just screen-share.
-
-## Problems I found in the curriculum (worth knowing before class)
-
-1. **Two of the four skill install commands 404.** `https://uupm.cc/SKILL.md` (UI UX Pro Max) and `kylezantos/design-motion-principles/main/SKILL.md` (wrong path; it's under `skills/design-motion-principles/`).
-2. **Even the working curl commands install incomplete skills.** UI UX Pro Max ships 70+ files (`data/`, `scripts/`), Taste ships `assets/` and `library/`, and Design Motion ships `references/`. Curling only `SKILL.md` silently drops them. `demo-kit/setup-skills.sh` clones all four complete folders. It's tested and installed all four.
-3. **Sub-agent `skills:` uses each skill's `name` field.** The Taste skill's name is `design-taste-frontend`, not `taste-skill`, so the curriculum's agent file won't preload it (Claude Code silently ignores unknown names). Fixed in `demo-kit/.claude/agents/front-end-agent.md`.
-4. **Assignments typo:** "JavaScript Certification: complete 100 steps for receiving your **Python** Certification."
-5. The Netflix clone link (`Code-Platoon-Assignments/agentic-netflix-clone-i`) returned 404 for me. It may just be private, but check that students can access it.
+- [ ] Point students at the class site's "Set up Claude Code" section for `setup-skills.sh`
+- [x] Class site is live at https://kabeier.github.io/SPAs-and-Claude/ (every slide deck, activity and diagram, each opening in a new tab)
