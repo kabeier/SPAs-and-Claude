@@ -49,7 +49,7 @@ claude mcp remove chrome-devtools -s user
 claude mcp list                     # should no longer show the three
 ```
 
-Removing the MCPs is what lets you add them live without an "already exists" error. npm and npx keep their caches, so tomorrow's installs are still fast.
+Removing the MCPs is what lets you add them live without an "already exists" error. If a remove says `No MCP server named "…" in user scope`, that one was already gone; that's fine. Before class, `claude mcp list` should show none of the three. If one still shows, `claude mcp get <name>` tells you its scope; remove it with that scope (`-s local` or `-s project`). npm and npx keep their caches, so tomorrow's installs are still fast.
 
 ## 4 · Backup
 
