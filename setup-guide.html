@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install the design skills by hand · SPAs and Claude</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#f4f6f9; --grid:#dce3ee; --ink:#1b2230; --muted:#5b6577; --blue:#2552c9; --green:#13795b; --red:#c8372d; --sticky:#ffe76a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; color: var(--ink); font-size: 18px; line-height: 1.55;
+    background: var(--paper) linear-gradient(var(--grid) 1px, transparent 1px) -1px -1px / 40px 40px,
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px) -1px -1px / 40px 40px; }
+  main { max-width: 900px; margin: 0 auto; padding: 56px 28px 80px; }
+  .back { color: var(--blue); font-weight: 700; }
+  h1 { font: 800 clamp(36px, 5.5vw, 58px)/1 'Bricolage Grotesque', sans-serif; letter-spacing: -0.03em; margin: 20px 0 14px; }
+  .lede { color: var(--muted); font-size: 20px; margin: 0 0 12px; max-width: 64ch; }
+  h2 { font: 800 30px/1.15 'Bricolage Grotesque', sans-serif; margin: 56px 0 10px; letter-spacing: -0.01em; }
+  h3 { font: 800 22px 'Bricolage Grotesque', sans-serif; margin: 32px 0 8px; }
+  section.box { background: #fff; border: 2px solid var(--ink); border-radius: 4px; padding: 8px 28px 24px; }
+  ol.steps { padding-left: 1.4em; } ol.steps > li { margin: 0 0 18px; padding-left: 4px; }
+  code { font: 500 0.88em 'JetBrains Mono', ui-monospace, monospace; background: #e8ecf3; padding: 1px 5px; border-radius: 3px; }
+  .cmd { position: relative; margin: 10px 0 6px; }
+  .cmd pre { background: var(--ink); color: #fff; padding: 16px 18px; padding-right: 86px; border-radius: 4px; overflow-x: auto; margin: 0; font: 500 15px/1.6 'JetBrains Mono', monospace; }
+  .cmd pre .c { color: #9fb0c8; }
+  .cmd button { position: absolute; top: 10px; right: 10px; font: 700 14px 'Atkinson Hyperlegible'; padding: 6px 12px; border-radius: 4px; border: 0; background: var(--sticky); color: var(--ink); cursor: pointer; }
+  .note { background: var(--sticky); padding: 14px 18px; margin: 14px 0; transform: rotate(-0.4deg); }
+  .os { display: grid; grid-template-columns: 130px 1fr; gap: 6px 16px; margin: 8px 0; }
+  .os b { color: var(--blue); }
+  table { width: 100%; border-collapse: collapse; background: #fff; font-size: 16px; }
+  th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 2px solid var(--grid); }
+  th { font: 800 17px 'Bricolage Grotesque', sans-serif; border-bottom-color: var(--ink); }
+  td:first-child { width: 38%; }
+  td code { overflow-wrap: anywhere; }
+  @media (max-width: 640px) { section.box { padding: 8px 16px 20px; } ol.steps { padding-left: 1.1em; } th, td { padding: 10px 8px; } }
+  .tree { background: #fff; border: 2px solid var(--grid); padding: 14px 18px; font: 500 15px/1.6 'JetBrains Mono', monospace; white-space: pre; overflow-x: auto; }
+  a { color: var(--blue); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">Back to SPAs and Claude</a>
+  <h1>Install the design skills by hand</h1>
+  <p class="lede">Use this page if the one-line install command failed. First check the error table below; most failures are a one-line fix. If yours isn't there, follow the manual install. It doesn't need git, and it ends with exactly the same files as the script.</p>
+
+  <h2>What you're making</h2>
+  <p>Four skill folders inside your project. Each one has a <code>SKILL.md</code> plus supporting folders, so copy the <b>whole folder</b>, not just the file.</p>
+  <div class="tree">my-project/
+└── .claude/
+    └── skills/
+        ├── frontend-design/            SKILL.md + 1 file
+        ├── ui-ux-pro-max/              SKILL.md + data/ scripts/ references/  (73 files)
+        ├── taste-skill/                SKILL.md + assets/ library/ ...        (29 files)
+        └── design-motion-principles/   SKILL.md + references/ workflows/      (15 files)</div>
+
+  <h2>If the script printed an error</h2>
+  <table>
+    <tr><th>What you saw</th><th>What to do</th></tr>
+    <tr><td><code>'bash' is not recognized</code>, <code>Invoke-WebRequest</code>, or red PowerShell text</td><td>You're in PowerShell or Command Prompt. On Windows, open the <b>Ubuntu</b> app (WSL) from the Start menu and run the command there.</td></tr>
+    <tr><td><code>git is not installed</code> or <code>git: command not found</code></td><td><b>Mac:</b> run <code>xcode-select --install</code>, click Install, then try again.<br><b>WSL / Ubuntu:</b> <code>sudo apt update &amp;&amp; sudo apt install -y git</code><br><b>Fedora:</b> <code>sudo dnf install -y git</code></td></tr>
+    <tr><td><code>curl: command not found</code></td><td><b>WSL / Ubuntu:</b> <code>sudo apt update &amp;&amp; sudo apt install -y curl</code></td></tr>
+    <tr><td><code>$'\r': command not found</code> or <code>set: pipefail: invalid option</code></td><td>You downloaded the script and opened or saved it on Windows, which broke its line endings. Don't run the file; paste the one-line <code>curl ... | bash</code> command instead.</td></tr>
+    <tr><td><code>Could not resolve host</code> or <code>Failed to connect</code></td><td>Network problem. Check your internet or VPN, then try again. On WSL, running <code>wsl --shutdown</code> in PowerShell and reopening Ubuntu often fixes it.</td></tr>
+    <tr><td><code>Permission denied</code></td><td>You're in a folder you don't own. Run <code>cd ~/your-project</code> first. Don't use <code>sudo</code>.</td></tr>
+    <tr><td><code>✗ SKILL.md missing for …</code></td><td>That skill's GitHub repo moved its files. Use the manual install below and look for the folder that contains <code>SKILL.md</code>.</td></tr>
+    <tr><td>It worked, but <code>/skills</code> in Claude shows nothing</td><td>You ran it in a different folder. Run <code>ls .claude/skills</code>. If you get "No such file", <code>cd</code> into your project and run the command again. Start <code>claude</code> from that same folder.</td></tr>
+  </table>
+
+  <h2>Manual install: in the terminal</h2>
+  <section class="box">
+    <p>Works on macOS Terminal, Linux, and Windows WSL (the Ubuntu app). Paste one block at a time and wait for it to finish.</p>
+    <ol class="steps">
+      <li><b>Install unzip</b> (Mac and Fedora already have it):
+        <div class="cmd"><pre>sudo apt update &amp;&amp; sudo apt install -y curl unzip   <span class="c"># WSL / Ubuntu only</span></pre></div></li>
+      <li><b>Go to your project folder</b> and create the skills folder. Change <code>my-project</code> to your folder's name:
+        <div class="cmd"><pre>cd ~/my-project
+mkdir -p .claude/skills
+mkdir -p ~/skill-downloads</pre></div></li>
+      <li><b>Frontend Design</b>
+        <div class="cmd"><pre>curl -L -o ~/skill-downloads/frontend-design.zip https://github.com/anthropics/skills/archive/refs/heads/main.zip
+unzip -q -o ~/skill-downloads/frontend-design.zip -d ~/skill-downloads
+cp -R ~/skill-downloads/skills-main/skills/frontend-design .claude/skills/</pre></div></li>
+      <li><b>UI UX Pro Max</b>
+        <div class="cmd"><pre>curl -L -o ~/skill-downloads/ui-ux-pro-max.zip https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/archive/refs/heads/main.zip
+unzip -q -o ~/skill-downloads/ui-ux-pro-max.zip -d ~/skill-downloads
+cp -R ~/skill-downloads/ui-ux-pro-max-skill-main/.claude/skills/ui-ux-pro-max .claude/skills/</pre></div></li>
+      <li><b>Taste</b>
+        <div class="cmd"><pre>curl -L -o ~/skill-downloads/taste-skill.zip https://github.com/Leonxlnx/taste-skill/archive/refs/heads/main.zip
+unzip -q -o ~/skill-downloads/taste-skill.zip -d ~/skill-downloads
+cp -R ~/skill-downloads/taste-skill-main/skills/taste-skill .claude/skills/</pre></div></li>
+      <li><b>Design Motion Principles</b>
+        <div class="cmd"><pre>curl -L -o ~/skill-downloads/design-motion-principles.zip https://github.com/kylezantos/design-motion-principles/archive/refs/heads/main.zip
+unzip -q -o ~/skill-downloads/design-motion-principles.zip -d ~/skill-downloads
+cp -R ~/skill-downloads/design-motion-principles-main/skills/design-motion-principles .claude/skills/</pre></div></li>
+      <li><b>Check and clean up.</b> You should see four <code>SKILL.md</code> lines. Then delete the downloads:
+        <div class="cmd"><pre>ls .claude/skills/*/SKILL.md
+rm -rf ~/skill-downloads</pre></div></li>
+    </ol>
+  </section>
+
+  <h2>Manual install: point and click</h2>
+  <section class="box">
+    <p>For when the terminal keeps fighting you. You still need the terminal for one thing: creating <code>.claude</code>, because Finder won't let you name a folder starting with a dot.</p>
+    <ol class="steps">
+      <li><b>Create the skills folder and open it.</b> In your terminal, inside your project folder, run:
+        <div class="cmd"><pre>mkdir -p .claude/skills</pre></div>
+        Then open that folder in your file browser:
+        <div class="os"><b>Mac</b><span><code>open .claude/skills</code></span><b>Windows (WSL)</b><span><code>explorer.exe .claude/skills</code></span><b>Linux</b><span><code>xdg-open .claude/skills</code></span></div>
+        Keep that window open. It's where every skill folder goes.</li>
+      <li><b>Download the four ZIP files</b> by clicking each link:
+        <table>
+          <tr><th>Download</th><th>After unzipping, open this folder and copy the skill folder inside it</th></tr>
+          <tr><td><a href="https://github.com/anthropics/skills/archive/refs/heads/main.zip">frontend-design ZIP</a></td><td><code>skills-main/skills/</code> → copy <b>frontend-design</b></td></tr>
+          <tr><td><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/archive/refs/heads/main.zip">ui-ux-pro-max ZIP</a></td><td><code>ui-ux-pro-max-skill-main/.claude/skills/</code> → copy <b>ui-ux-pro-max</b><br>This path starts with a hidden folder, see the note below.</td></tr>
+          <tr><td><a href="https://github.com/Leonxlnx/taste-skill/archive/refs/heads/main.zip">taste-skill ZIP</a></td><td><code>taste-skill-main/skills/</code> → copy <b>taste-skill</b></td></tr>
+          <tr><td><a href="https://github.com/kylezantos/design-motion-principles/archive/refs/heads/main.zip">design-motion-principles ZIP</a></td><td><code>design-motion-principles-main/skills/</code> → copy <b>design-motion-principles</b></td></tr>
+        </table></li>
+      <li><b>Unzip each one.</b> On a Mac, double-click it. On Windows, right-click → <b>Extract All</b>.</li>
+      <li><b>Copy each skill folder</b> (the whole folder, not just <code>SKILL.md</code>) into the <code>.claude/skills</code> window from step 1.
+        <div class="note"><b>Can't see <code>.claude</code> inside the ui-ux-pro-max download?</b> Folders whose names start with a dot are hidden. On a Mac, press <b>Cmd + Shift + .</b> in Finder to show them. On Windows, open File Explorer → <b>View</b> → <b>Show</b> → <b>Hidden items</b>.</div></li>
+      <li><b>Check it.</b> Back in the terminal, in your project folder, run <code>ls .claude/skills/*/SKILL.md</code>. You should see four lines.</li>
+    </ol>
+  </section>
+
+  <h2>Confirm Claude sees them</h2>
+  <ol class="steps">
+    <li>In your project folder, start Claude Code with <code>claude</code>.</li>
+    <li>Type <code>/skills</code>. You should see <b>frontend-design</b>, <b>ui-ux-pro-max</b>, <b>design-taste-frontend</b>, and <b>design-motion-principles</b>.</li>
+  </ol>
+  <p>Taste shows up as <b>design-taste-frontend</b>, not taste-skill. That's correct: Claude lists skills by the name written inside their <code>SKILL.md</code>, not by folder name. If Claude was already running when you installed the skills, quit it and start it again.</p>
+
+  <h3>Want the skills in every project?</h3>
+  <p>Run the one-line install from your home folder instead (<code>cd ~</code> first). That puts them in <code>~/.claude/skills</code>, which Claude Code loads in every project.</p>
+</main>
+<script>
+  document.querySelectorAll('.cmd').forEach((box) => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Copy'
+    b.onclick = async () => {
+      const text = box.querySelector('pre').innerText.replace(/\s+# WSL \/ Ubuntu only/, '')
+      await navigator.clipboard.writeText(text); b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy'), 1500)
+    }
+    box.append(b)
+  })
+</script>
+</body>
+</html>

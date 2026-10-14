@@ -36,8 +36,17 @@
   .gallery img { width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; display: block; }
   .gallery figcaption { font-size: 15px; padding: 6px 2px 0; display: flex; justify-content: space-between; gap: 8px; }
   .gallery figcaption a { color: var(--blue); }
-  .cmdhelp { margin: 0 0 8px; color: var(--muted); }
-  pre.cmd { background: var(--ink); color: #fff; padding: 16px 18px; border-radius: 4px; overflow-x: auto; margin: 0 0 16px; font-size: 15px; }
+  .install { margin-bottom: 20px; }
+  .install h4 { font: 800 21px 'Bricolage Grotesque', sans-serif; margin: 0 0 6px; }
+  .install .steps { display: block; list-style: decimal; padding-left: 1.4em; margin: 0 0 14px; }
+  .install .steps li::marker { font-weight: 700; color: var(--blue); } .install .steps li { margin-bottom: 12px; }
+  .install code { font-size: 0.9em; background: #e8ecf3; padding: 1px 5px; border-radius: 3px; }
+  .cmdwrap { position: relative; margin: 8px 0 6px; }
+  pre.cmd { background: var(--ink); color: #fff; padding: 16px 18px; padding-right: 90px; border-radius: 4px; overflow-x: auto; margin: 0; font-size: 15px; }
+  pre.cmd code { background: none; padding: 0; }
+  .copy { position: absolute; top: 10px; right: 10px; font: 700 14px 'Atkinson Hyperlegible'; padding: 6px 12px; border-radius: 4px; border: 0; background: var(--sticky); color: var(--ink); cursor: pointer; }
+  .fail { margin: 0; padding: 14px 18px; background: var(--sticky); transform: rotate(-0.4deg); }
+  .fail a { font-weight: 700; }
   footer { margin-top: 56px; color: var(--muted); font-size: 16px; }
   a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { a.slides { transition: none; } }
@@ -73,8 +82,18 @@
   </div>
 
   <h3>Set up Claude Code for the homework</h3>
-  <p class="cmdhelp">Install all four design skills: open a terminal in your project folder (macOS Terminal, Linux, or WSL on Windows) and paste:</p>
-  <pre class="cmd"><code>curl -fsSL https://kabeier.github.io/SPAs-and-Claude/lecture-2-building-spas/demo-kit/setup-skills.sh | bash</code></pre>
+  <section class="install">
+    <h4>Install the four design skills</h4>
+    <ol class="steps">
+      <li><b>Open a terminal.</b> Mac: the Terminal app. Linux: your terminal. Windows: the <b>Ubuntu</b> app (WSL). Don't use PowerShell, Command Prompt, or Git Bash.</li>
+      <li><b>Go to your project folder</b>, the one you'll start Claude Code in: <code>cd ~/my-project</code>. The skills install into <code>.claude/skills/</code> inside whatever folder you're in.</li>
+      <li><b>Paste this and press Enter:</b>
+        <div class="cmdwrap"><pre class="cmd"><code>curl -fsSL https://kabeier.github.io/SPAs-and-Claude/lecture-2-building-spas/demo-kit/setup-skills.sh | bash</code></pre><button type="button" class="copy">Copy</button></div>
+        It should finish with four ✓ lines, one per skill.</li>
+      <li><b>Check it:</b> start <code>claude</code> in the same folder and type <code>/skills</code>. You should see all four. (Taste appears as <code>design-taste-frontend</code>, which is correct.)</li>
+    </ol>
+    <p class="fail">Got an error, or no ✓ lines? <a href="setup-guide.html" target="_blank" rel="noopener">Open the step-by-step manual install guide</a>. It starts with a fix-it table for common errors.</p>
+  </section>
   <ol class="kit">
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/setup-skills.sh" target="_blank" rel="noopener"><b>setup-skills.sh</b><span>Installs all four design skills, complete.</span></a></li>
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/setup-mcps.sh" target="_blank" rel="noopener"><b>setup-mcps.sh</b><span>Adds the Playwright, Context7 and Chrome DevTools MCPs.</span></a></li>
@@ -89,6 +108,9 @@
   <footer>Want to edit a diagram? Download its .tldr file and drag it onto <a href="https://www.tldraw.com" target="_blank" rel="noopener">tldraw.com</a>.</footer>
 </main>
 <script>
+  document.querySelectorAll('.copy').forEach((b) => b.onclick = async () => {
+    await navigator.clipboard.writeText(b.previousElementSibling.innerText.trim()); b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy'), 1500)
+  })
   const DIAGRAMS = [
     ['L1-01-restaurant', 'Every app is a restaurant'], ['L1-02-vague-vs-blueprint', 'Vague idea vs blueprint'],
     ['L1-03-planning-pipeline', 'The planning pipeline'], ['L1-04-eight-questions', 'The 8 questions'],
