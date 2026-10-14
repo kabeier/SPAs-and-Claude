@@ -106,8 +106,8 @@ rm -rf ~/skill-downloads</pre></div></li>
       <li><b>Create the skills folder and open it.</b> In your terminal, inside your project folder, run:
         <div class="cmd"><pre>mkdir -p .claude/skills</pre></div>
         Then open that folder in your file browser:
-        <div class="os"><b>Mac</b><span><code>open .claude/skills</code></span><b>Windows (WSL)</b><span><code>explorer.exe .claude/skills</code></span><b>Linux</b><span><code>xdg-open .claude/skills</code></span></div>
-        Keep that window open. It's where every skill folder goes.</li>
+        <div class="os"><b>Mac</b><span><code>open .claude/skills</code></span><b>Windows (WSL)</b><span><code>(cd .claude/skills &amp;&amp; explorer.exe .)</code></span><b>Linux</b><span><code>xdg-open .claude/skills</code></span></div>
+        Keep that window open. It's where every skill folder goes. On Windows its address bar starts with <code>\\wsl.localhost\Ubuntu</code>, which is normal: your project lives inside Linux.</li>
       <li><b>Download the four ZIP files</b> by clicking each link:
         <table>
           <tr><th>Download</th><th>After unzipping, open this folder and copy the skill folder inside it</th></tr>
@@ -116,7 +116,9 @@ rm -rf ~/skill-downloads</pre></div></li>
           <tr><td><a href="https://github.com/Leonxlnx/taste-skill/archive/refs/heads/main.zip">taste-skill ZIP</a></td><td><code>taste-skill-main/skills/</code> → copy <b>taste-skill</b></td></tr>
           <tr><td><a href="https://github.com/kylezantos/design-motion-principles/archive/refs/heads/main.zip">design-motion-principles ZIP</a></td><td><code>design-motion-principles-main/skills/</code> → copy <b>design-motion-principles</b></td></tr>
         </table></li>
-      <li><b>Unzip each one.</b> On a Mac, double-click it. On Windows, right-click → <b>Extract All</b>.</li>
+      <li><b>Unzip each one.</b>
+        <div class="os"><b>Mac</b><span>Double-click the ZIP in Downloads. If you use Safari, it may have unzipped them for you already, so look for folders like <code>skills-main</code> in Downloads.</span>
+        <b>Windows</b><span>In Downloads, right-click the ZIP → <b>Extract All</b> → <b>Extract</b>. Windows puts the files in a folder with the same name <b>twice</b>, so the path starts <code>skills-main\skills-main\…</code>. Open the second one, then follow the path in the table.</span></div></li>
       <li><b>Copy each skill folder</b> (the whole folder, not just <code>SKILL.md</code>) into the <code>.claude/skills</code> window from step 1.
         <div class="note"><b>Can't see <code>.claude</code> inside the ui-ux-pro-max download?</b> Folders whose names start with a dot are hidden. On a Mac, press <b>Cmd + Shift + .</b> in Finder to show them. On Windows, open File Explorer → <b>View</b> → <b>Show</b> → <b>Hidden items</b>.</div></li>
       <li><b>Check it.</b> Back in the terminal, in your project folder, run <code>ls .claude/skills/*/SKILL.md</code>. You should see four lines.</li>
