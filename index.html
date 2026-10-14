@@ -91,11 +91,19 @@
         It should finish with four ✓ lines, one per skill.</li>
       <li><b>Check it:</b> start <code>claude</code> in the same folder and type <code>/skills</code>. You should see all four. (Taste appears as <code>design-taste-frontend</code>, which is correct.)</li>
     </ol>
-    <p class="fail">Got an error, or no ✓ lines? <a href="setup-guide.html" target="_blank" rel="noopener">Open the step-by-step manual install guide</a>. It starts with a fix-it table for common errors.</p>
+    <p class="fail">Skills install gave an error, or no ✓ lines? <a href="setup-guide.html" target="_blank" rel="noopener">Open the step-by-step manual install guide</a>. It starts with a fix-it table for common errors.</p>
+    <h4 style="margin-top:28px">Add the three MCP servers</h4>
+    <ol class="steps">
+      <li><b>In the same terminal</b> (not inside Claude Code), paste these three lines:
+        <div class="cmdwrap"><pre class="cmd"><code>claude mcp add --scope user playwright -- npx -y @playwright/mcp@latest
+claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp
+claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest</code></pre><button type="button" class="copy">Copy</button></div>
+        <code>--scope user</code> means every project on your computer gets them. If one says it already exists (you added Playwright in an earlier lecture), that's fine.</li>
+      <li><b>Check them:</b> <code>claude mcp list</code> should show all three as Connected. Inside Claude Code, <code>/mcp</code> shows the same.</li>
+    </ol>
   </section>
   <ol class="kit">
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/setup-skills.sh" target="_blank" rel="noopener"><b>setup-skills.sh</b><span>Installs all four design skills, complete.</span></a></li>
-    <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/setup-mcps.sh" target="_blank" rel="noopener"><b>setup-mcps.sh</b><span>Adds the Playwright, Context7 and Chrome DevTools MCPs.</span></a></li>
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/.claude/agents/front-end-agent.md" target="_blank" rel="noopener"><b>front-end-agent.md</b><span>The reusable front-end sub-agent.</span></a></li>
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/blob/main/lecture-2-building-spas/demo-kit/prompt.md" target="_blank" rel="noopener"><b>The build prompt</b><span>What we pasted into Claude Code.</span></a></li>
     <li><a href="https://github.com/kabeier/SPAs-and-Claude/tree/main/lecture-2-building-spas/demo-kit/app_outline" target="_blank" rel="noopener"><b>Example app_outline/</b><span>Journey, style guide, user stories and wireframes for Liftlog.</span></a></li>

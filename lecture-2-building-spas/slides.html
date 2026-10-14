@@ -15,7 +15,7 @@
   <h1>Building your SPA: from blueprint to running app</h1>
   <p class="sub">Last time you designed the intent. Today Claude Code builds it, and you stay the architect.</p>
   <aside class="notes">
-    <p><b>Before class:</b> demo project scaffolded and committed (see demo-kit/RUNBOOK.md). Claude Code open in that folder. Tabs ready: SPA Detective page, Who's Responsible page, tldraw.com with your SPA vs traditional drawing. Press <b>T</b> to start the clock.</p>
+    <p><b>Before class:</b> nothing is installed in the demo project yet. You build it live: Vite at slide 8, MCPs at slide 10, skills at slide 11, app_outline at slide 12 (see demo-kit/RUNBOOK.md). Have two terminals open in <code>~/demos</code>, and tabs ready: SPA Detective page, Who's Responsible page, your SPA vs traditional drawing. Press <b>T</b> to start the clock.</p>
   </aside>
 </section>
 
@@ -126,11 +126,14 @@ function WorkoutCard({ name, date }) {
   <h2>Start the project: Vite does the scaffolding</h2>
   <div class="cols wide-left">
     <pre>npm create vite@latest
-<span class="c"># Project name?     liftlog
-# Framework?        React
-# Variant?          JavaScript
-# Install + start?  Yes</span>
+<span class="c"># Project name:    liftlog
+# Framework:       React
+# Variant:         JavaScript
+# Linter:          Oxlint (either is fine)
+# Install + start: No</span>
 
+cd liftlog
+npm install
 npm install react-router-dom
 npm run dev
 <span class="c"># → http://localhost:5173</span></pre>
@@ -141,12 +144,18 @@ npm run dev
     </div>
   </div>
   <aside class="notes">
-    <p>If you scaffolded the night before, show the running default Vite page at localhost:5173 instead of waiting on installs.</p>
+    <p><b>Do it live in terminal 1</b>, from <code>~/demos</code>. Narrate each answer. For Variant pick plain <b>JavaScript</b>, not "React Router v7" (that's a different framework). Answer <b>No</b> to "Install and start now" so you can show each step separately:</p>
+    <ul>
+      <li><code>npm install</code>: "npm reads package.json, the shopping list, and downloads everything into node_modules."</li>
+      <li><code>npm install react-router-dom</code>: "Adding one more part. Watch it appear in package.json."</li>
+      <li><code>npm run dev</code>: "Vite starts the dev server." Open localhost:5173 and show the default page. Leave this terminal running for the rest of class.</li>
+    </ul>
+    <p>Takes about 15 seconds if you did a dry run last night (npm caches the downloads).</p>
   </aside>
 </section>
 
 <!-- ============ EQUIP CLAUDE (21–28) ============ -->
-<section class="slide diagram" data-seg="Equip Claude Code" data-at="16">
+<section class="slide diagram" data-seg="Equip Claude Code" data-at="18">
   <img src="../diagrams/L2-03-toolbelt.png" alt="Claude Code receives context from app_outline, rules from skills, abilities from MCP servers, and can be packaged as a sub-agent">
   <div class="src">diagrams/L2-03-toolbelt.tldr</div>
   <aside class="notes">
@@ -154,7 +163,7 @@ npm run dev
   </aside>
 </section>
 
-<section class="slide" data-seg="Equip Claude Code" data-at="17">
+<section class="slide" data-seg="Equip Claude Code" data-at="19">
   <h2>MCP servers give Claude abilities</h2>
   <div class="grid3">
     <div class="card green"><h3>Context7</h3><p>Pulls the latest docs for our stack, so no deprecated functions.</p></div>
@@ -164,13 +173,15 @@ npm run dev
   <pre style="margin-top:28px;font-size:21px">claude mcp add --scope user playwright      -- npx -y @playwright/mcp@latest
 claude mcp add --scope user context7        -- npx -y @upstash/context7-mcp
 claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
-<span class="c"># then inside Claude Code:  /mcp</span></pre>
+<span class="c"># check:  claude mcp list</span></pre>
   <aside class="notes">
-    <p>They already have Playwright from a previous lecture. Show <code>/mcp</code> in your Claude session with all three connected.</p>
+    <p><b>Do it live in terminal 2</b>, inside <code>~/demos/liftlog</code>. Paste the three commands one at a time and say what each gives Claude: docs, eyes and hands, a debugger.</p>
+    <p>Then run <code>claude mcp list</code>. It checks each server and should show all three as <b>Connected</b>. "--scope user means every project on this laptop gets them, not just this one."</p>
+    <p>They already have Playwright from a previous lecture. If <code>claude mcp add</code> says it already exists, that's fine: "I already had this one."</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Equip Claude Code" data-at="19">
+<section class="slide" data-seg="Equip Claude Code" data-at="22">
   <h2>Skills are rulebooks that push Claude past generic AI design</h2>
   <div class="cols">
     <div>
@@ -180,7 +191,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
         <li><b>taste</b>: dials for variance and density, bans the "AI slop" defaults</li>
         <li><b>design-motion-principles</b>: easing, timing, micro-interactions</li>
       </ul>
-      <p class="small muted" style="margin-top:14px">Claude auto-detects <code>.claude/skills/&lt;name&gt;/SKILL.md</code>. Check with <code>/skills</code>.</p>
+      <p class="small muted" style="margin-top:14px">Install: the one-liner on the class site. Check: <code>/skills</code></p>
     </div>
     <pre style="font-size:20px">your-project/
 ├── .claude/
@@ -199,21 +210,22 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </div>
   <aside class="notes">
     <p>Teach it as "a skill is a <b>folder</b>, not a file": several of these ship data/, references/ or assets/ folders alongside SKILL.md. <code>demo-kit/setup-skills.sh</code> (tested) clones all four complete folders in one go.</p>
-    <p>Run <code>/skills</code> live to show they loaded.</p>
+    <p><b>Do it live in terminal 2:</b> paste the one-line install from the class site. It prints a ✓ per skill with its file count. Then <code>ls .claude/skills</code> so they see the four folders.</p>
   </aside>
 </section>
 
 <!-- ============ BUILD (26–41) ============ -->
-<section class="slide diagram" data-seg="Build it" data-at="21">
+<section class="slide diagram" data-seg="Build it" data-at="23">
   <img src="../diagrams/L2-05-app-outline.png" alt="app_outline folder structure mapped to its purpose">
   <div class="src">diagrams/L2-05-app-outline.tldr</div>
   <aside class="notes">
     <p>"Your Lecture 1 homework becomes this folder." One folder per page means Claude works on one page at a time: <b>limit context, isolate scope</b>.</p>
-    <p>Switch to your editor: show <code>app_outline/</code> in the demo project, open <code>pages/home/user_story.md</code> next to <code>home.png</code>.</p>
+    <p><b>Do it live in terminal 2:</b> <code>cp -r ~/demo-kit/app_outline .</code> ("this is the Lecture 1 homework, dropped into the project"). In your editor, open <code>pages/home/user_story.md</code> next to <code>home.png</code>.</p>
+    <p>Then start Claude: <code>claude --permission-mode acceptEdits</code>. Type <code>/mcp</code> (three servers) and <code>/skills</code> (four skills) so they see Claude picked up everything you just installed. Taste shows as design-taste-frontend.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Build it" data-at="22">
+<section class="slide" data-seg="Build it" data-at="26">
   <h2>The prompt: every part has a job</h2>
   <div class="grid2x4">
     <div class="card"><b>Stack</b><p>React + Vite, React Router with BrowserRouter</p></div>
@@ -232,7 +244,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </aside>
 </section>
 
-<section class="slide diagram" data-seg="Build it" data-at="25">
+<section class="slide diagram" data-seg="Build it" data-at="28">
   <img src="../diagrams/L2-04-build-loop.png" alt="Build loop: plan, build one phase, screenshot, compare with wireframe, you approve, git commit, next phase">
   <div class="src">diagrams/L2-04-build-loop.tldr</div>
   <aside class="notes">
@@ -240,7 +252,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </aside>
 </section>
 
-<section class="slide activity" data-seg="Activity: Who's responsible?" data-at="26">
+<section class="slide activity" data-seg="Activity: Who's responsible?" data-at="29">
   <h2>Activity: Who's responsible? (while Claude builds)</h2>
   <div class="countdown" data-sec="300"></div>
   <ol class="steps">
@@ -255,7 +267,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </aside>
 </section>
 
-<section class="slide ask" data-seg="Build it" data-at="31">
+<section class="slide ask" data-seg="Build it" data-at="34">
   <div class="sticky">
     <div class="who">Back to Claude · unmute or chat</div>
     <div class="q">Does phase 1 match the wireframe? What feedback would you give Claude before approving?</div>
@@ -263,11 +275,11 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </div>
   <aside class="notes">
     <p>Open localhost:5173 and put it next to <code>app_outline/pages/home/home.png</code>. Take 2–3 pieces of feedback and type one into Claude as phase feedback. Then approve.</p>
-    <p><b>If phase 1 isn't done by ~31 min:</b> don't wait. Open the backup app (Liftlog on the class site, or <code>demo-kit/backup-liftlog</code> with <code>npm run dev</code>) and do the comparison with it. Let Claude keep going in the background. Same spec, already built.</p>
+    <p><b>If phase 1 isn't done by ~34 min:</b> don't wait. Open the backup app (Liftlog on the class site, or <code>demo-kit/backup-liftlog</code> with <code>npm run dev</code>) and do the comparison with it. Let Claude keep going in the background. Same spec, already built.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Ship it" data-at="34">
+<section class="slide" data-seg="Ship it" data-at="37">
   <h2>Version control: every approved phase is a save point</h2>
   <div class="cols wide-left">
     <pre>git init
@@ -286,11 +298,12 @@ gh repo create liftlog --public --source=. --push</pre>
     </div>
   </div>
   <aside class="notes">
-    <p>Do the commit live. You can also ask Claude: "commit this phase with a descriptive message."</p>
+    <p><b>Do it live.</b> Quit Claude or open a third terminal in <code>~/demos/liftlog</code> and run the three git lines (the project isn't a git repo yet). Vite already made a .gitignore, so node_modules stays out. You can also ask Claude: "commit this phase with a descriptive message."</p>
+    <p>Explain <code>gh repo create</code> instead of running it, unless you want a public repo of the demo.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Ship it" data-at="36">
+<section class="slide" data-seg="Ship it" data-at="39">
   <h2>Package it as a front-end sub-agent</h2>
   <div class="cols wide-left">
     <pre style="font-size:20px"><span class="c"># .claude/agents/front-end-agent.md</span>
@@ -317,11 +330,12 @@ You are a Senior Front-End Engineer…</pre>
     </div>
   </div>
   <aside class="notes">
+    <p><b>Optional live step (30 sec):</b> <code>mkdir -p .claude/agents &amp;&amp; cp ~/demo-kit/.claude/agents/front-end-agent.md .claude/agents/</code>, then <code>/agents</code> in Claude to show it's registered.</p>
     <p>Full file: demo-kit/.claude/agents/front-end-agent.md. Subagents preload skills by the <b>name</b> field inside each SKILL.md. The Taste skill's folder is <code>taste-skill</code> but its name is <code>design-taste-frontend</code>, so that's what goes in the list.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Wrap up" data-at="38">
+<section class="slide" data-seg="Wrap up" data-at="40">
   <h2>Homework, Part II</h2>
   <ol style="list-style:none;padding-left:0">
     <li><b>Priority 1, build your app:</b> turn your Part I planning into an <code>app_outline/</code> and build the front-end SPA</li>
@@ -331,11 +345,11 @@ You are a Senior Front-End Engineer…</pre>
   <p class="bottomline">Checklist: skills folder ✓ · MCPs connected ✓ · app_outline ✓ · phases approved ✓ · pushed to GitHub ✓</p>
   <aside class="notes">
     <p>Say the order out loud: your own app first, then the certification, then the Netflix clone if there's time.</p>
-    <p>Point students at the "Set up Claude Code" section of the class site for setup-skills.sh and setup-mcps.sh.</p>
+    <p>Point students at the "Set up Claude Code" section of the class site: the skills one-liner and the three MCP commands you ran today.</p>
   </aside>
 </section>
 
-<section class="slide ask" data-seg="Wrap up" data-at="39">
+<section class="slide ask" data-seg="Wrap up" data-at="41">
   <div class="sticky">
     <div class="who">Exit ticket · in chat</div>
     <div class="q">Name one thing you'll put in your app_outline that Claude couldn't have guessed.</div>

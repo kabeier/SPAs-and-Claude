@@ -80,20 +80,20 @@ Your existing SPA vs traditional tldraw drops in at Lecture 2, slide 3 (the note
 
 The blank blueprint board (`diagrams/ACT-live-blueprint-board.tldr`) is still in the kit if you ever have spare time to plan an app live with the class.
 
-## Lecture 2: Building Your SPA (~40 min, 20 slides)
+## Lecture 2: Building Your SPA (~42 min, 20 slides)
 
 | Min | Segment | What happens |
 |---|---|---|
 | 0–2 | Open | Goals |
 | 2–4 | What is a SPA? | Definition + **your SPA vs traditional tldraw** |
 | 4–9 | **Activity: SPA Detective** | Warm-up: KSPA radio site built both ways (the music timer resets on the traditional one, keeps playing on the SPA). Then 3 real sites: YouTube, Wikipedia (with DevTools → Network → Doc), the curriculum site. **K** shows verdicts. |
-| 9–16 | Tech stack | Stack diagram → React components → Router diagram → `npm create vite` |
-| 16–21 | Equip Claude | Toolbelt diagram → 3 MCPs (`/mcp`) → 4 skills (`/skills`) |
-| 21–26 | Build it | app_outline diagram → **paste the short 2-phase prompt, approve the phases** → build-loop diagram |
-| 26–31 | **Who's responsible?** | Core 8 cards while Claude builds phase 1. Stop when Claude finishes. |
-| 31–34 | Check in on Claude | Compare phase 1 with `home.png`, take class feedback, approve. Not done? Use the backup app. |
-| 34–38 | Ship it | git commit → front-end sub-agent |
-| 38–40 | Wrap | Homework Part II → exit ticket |
+| 9–18 | Tech stack | Stack diagram → React components → Router diagram → **live:** `npm create vite`, `npm install`, `npm install react-router-dom`, `npm run dev` |
+| 18–23 | Equip Claude | Toolbelt diagram → **live:** 3 × `claude mcp add` + `claude mcp list` → skills one-liner |
+| 23–29 | Build it | app_outline diagram (**live:** copy it in, start Claude, `/mcp`, `/skills`) → **paste the short 2-phase prompt, approve the phases** → build-loop diagram |
+| 29–34 | **Who's responsible?** | Core 8 cards while Claude builds phase 1. Stop when Claude finishes. |
+| 34–37 | Check in on Claude | Compare phase 1 with `home.png`, take class feedback, approve. Not done? Use the backup app. |
+| 37–40 | Ship it | **live:** `git init` + commit → front-end sub-agent |
+| 40–42 | Wrap | Homework Part II → exit ticket |
 
 **Why these activities:** *SPA Detective* is the same idea as your "which HTTP method am I using?" site tour. You drive real websites, they call it. *Who's Responsible?* fills the dead air while Claude builds, and drills the tech-stack and MCP/skill roles.
 
@@ -101,9 +101,7 @@ The blank blueprint board (`diagrams/ACT-live-blueprint-board.tldr`) is still in
 
 ## Night-before checklist
 
-- [ ] `bash lecture-2-building-spas/demo-kit/setup-mcps.sh` (or confirm all 3 MCPs show in `/mcp`)
-- [ ] Follow `demo-kit/RUNBOOK.md` steps 1–3: scaffold the `liftlog` demo project with skills + `app_outline`, commit
-- [ ] Dry-run the prompt once so you know how long phase 1 takes on your machine, then reset to the scaffold commit
+- [ ] Follow `demo-kit/RUNBOOK.md`: dry run every install once, then reset (delete the project, remove the 3 MCPs) so you can do it all live
 - [ ] `cd demo-kit/backup-liftlog && npm install && npm run dev`: confirm the backup runs
 - [ ] Open both decks, press **P**, and check the presenter window shows notes
 - [ ] Point students at the class site's "Set up Claude Code" section for `setup-skills.sh`
