@@ -282,7 +282,10 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
 <section class="slide" data-seg="Ship it" data-at="37">
   <h2>Version control: every approved phase is a save point</h2>
   <div class="cols wide-left">
-    <pre>git init
+    <pre><span class="c"># in Claude: save what it learned</span>
+/init                <span class="c"># writes CLAUDE.md</span>
+
+git init
 git add -A
 git commit -m "Phase 1: app shell + Home"
 
@@ -294,11 +297,13 @@ gh repo create liftlog --public --source=. --push</pre>
         <li>Phase 3 broke everything? Go back to phase 2.</li>
         <li>Share your code with teammates and instructors</li>
         <li>Your Claude sessions come and go. The repo stays.</li>
+        <li>CLAUDE.md is the first thing Claude reads next session</li>
       </ul>
     </div>
   </div>
   <aside class="notes">
-    <p><b>Do it live.</b> Quit Claude or open a third terminal in <code>~/demos/liftlog</code> and run the three git lines (the project isn't a git repo yet). Vite already made a .gitignore, so node_modules stays out. You can also ask Claude: "commit this phase with a descriptive message."</p>
+    <p><b>/init first.</b> Claude in terminal 2 is busy with phase 2, so open a third terminal in <code>~/demos/liftlog</code>, run <code>claude</code>, type <code>/init</code>, and approve the CLAUDE.md write. Scroll through it out loud: "Tomorrow I close this terminal and Claude forgets everything. This file is what it reads first next time." It now describes the real app (routes, folders, browser-only state, commands), which is why we waited until after phase 1. Short on time? Skip it and just say it. Then <code>/exit</code>.</p>
+    <p><b>Then git, live.</b> In that same third terminal in <code>~/demos/liftlog</code> and run the three git lines (the project isn't a git repo yet). Vite already made a .gitignore, so node_modules stays out. You can also ask Claude: "commit this phase with a descriptive message."</p>
     <p>Explain <code>gh repo create</code> instead of running it, unless you want a public repo of the demo.</p>
   </aside>
 </section>
