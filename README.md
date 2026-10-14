@@ -1,6 +1,6 @@
 # Single Page Apps: Lecture kit
 
-Two 45-minute lectures for *Phase III · Building Applications · Single Page Apps*, covering everything on the
+Two lectures, about 40 minutes of talking each (so the rest of the hour can go to questions), for *Phase III · Building Applications · Single Page Apps*, covering everything on the
 [overview](https://codeplatoon.github.io/se-curriculum/phase-III/09-Building-Applications/1-single-page-apps/),
 [UI Fundamentals](https://codeplatoon.github.io/se-curriculum/phase-III/09-Building-Applications/1-single-page-apps/1-ui-fundamentals/),
 [Building SPAs](https://codeplatoon.github.io/se-curriculum/phase-III/09-Building-Applications/1-single-page-apps/2-building-spas/) and the
@@ -66,37 +66,36 @@ Your existing SPA vs traditional tldraw drops in at Lecture 2, slide 3 (the note
 
 ---
 
-## Lecture 1: UI Fundamentals (45 min)
+## Lecture 1: UI Fundamentals (~40 min, 21 slides)
 
 | Min | Segment | What happens |
 |---|---|---|
-| 0–5 | Open | Goals → **chat waterfall** ("app you open most + first thing you tap") → "Claude can't read your mind" → vague vs blueprint diagram |
-| 5–12 | What is a UI? | Definition + elements → restaurant/dashboard diagram → why UI is the first impression → "app you quit because of the UI" |
-| 12–20 | **Activity: UI Crime Scene** | Students each take an exhibit #, try it, post "#n: crime + fix" in chat. 7-min timer. Press **K** on the page for the answer key. |
-| 20–21 | Debrief | "Every crime was a planning question nobody answered" |
-| 21–33 | Plan your app | Pipeline map → what/problem → users → goals → CRUD → user journey → screens in TLDraw → what goes wrong → worked Workout Tracker example |
-| 33–42 | **Activity: Live Blueprint** | Class votes on an app (study-group finder / chore tracker / potluck planner). You fill `ACT-live-blueprint-board.tldr` live from chat answers: 8 boxes → journey → what goes wrong → sketch 1 screen. 9-min timer. |
-| 42–45 | Wrap | 8-question template → "AI accelerates execution, not architecture" → homework Part I → exit ticket |
+| 0–5 | Open | Goals → "Claude can't read your mind" → vague vs blueprint diagram |
+| 5–9 | What is a UI? | Definition + elements → restaurant/dashboard diagram (why users judge the app by its UI) |
+| 9–16 | **Activity: UI Crime Scene** | Students each take an exhibit #, try it, post "#n: crime + fix" in chat. 6-min timer. Press **K** on the page for the answer key. Then "every crime was a planning question nobody answered." |
+| 16–33 | Plan your app | Pipeline map → what/problem → users → goals → CRUD → user journey → screens in TLDraw → what goes wrong → worked Workout Tracker example |
+| 33–40 | Wrap | 8-question template → "AI accelerates execution, not architecture" → homework Part I → exit ticket |
 
-**Why these activities:** *Crime Scene* uses the same "everyone takes a box" format that worked for your stateful-components page, but each box is a UI failure, so students discover "what happens when things go wrong" before you teach it. *Live Blueprint* models the exact homework (8 questions → journey → wireframe) with the whole class driving, so nobody leaves without having seen it done end to end.
+**Why this activity:** *Crime Scene* uses the same "everyone takes a box" format that worked for your stateful-components page, but each box is a UI failure, so students discover "what happens when things go wrong" before you teach it.
 
-## Lecture 2: Building Your SPA (45 min)
+The blank blueprint board (`diagrams/ACT-live-blueprint-board.tldr`) is still in the kit if you ever have spare time to plan an app live with the class.
+
+## Lecture 2: Building Your SPA (~40 min, 20 slides)
 
 | Min | Segment | What happens |
 |---|---|---|
 | 0–2 | Open | Goals |
 | 2–4 | What is a SPA? | Definition + **your SPA vs traditional tldraw** |
-| 4–11 | **Activity: SPA Detective** | Warm-up: KSPA radio site built both ways (the music timer resets on the traditional one and keeps playing on the SPA). Then you visit real sites and they vote SPA/TRAD in chat; settle it with DevTools → Network → Doc. **K** shows verdicts. |
-| 11–12 | Debrief | 3 ways to catch a SPA |
-| 12–21 | Tech stack | Who's responsible → stack diagram → React components → Router diagram → `npm create vite` |
-| 21–26 | Equip Claude | Toolbelt diagram → 3 MCPs (`/mcp`) → 4 skills (`/skills`) |
-| 26–31 | Build it | app_outline diagram → the prompt → **paste prompt, approve phases, let it run** → build-loop diagram |
-| 31–37 | **Activity: Who's responsible?** | 14 rapid-fire cards while Claude builds phase 1. Chat waterfall, space to reveal. |
-| 37–40 | Check in on Claude | Compare the phase 1 screenshot with `home.png`, take class feedback, approve |
-| 40–43 | Ship it | git commit per phase + `gh repo create` → front-end sub-agent |
-| 43–45 | Wrap | Homework Part II → exit ticket |
+| 4–9 | **Activity: SPA Detective** | Warm-up: KSPA radio site built both ways (the music timer resets on the traditional one, keeps playing on the SPA). Then 3 real sites: YouTube, Wikipedia (with DevTools → Network → Doc), the curriculum site. **K** shows verdicts. |
+| 9–16 | Tech stack | Stack diagram → React components → Router diagram → `npm create vite` |
+| 16–21 | Equip Claude | Toolbelt diagram → 3 MCPs (`/mcp`) → 4 skills (`/skills`) |
+| 21–26 | Build it | app_outline diagram → **paste the short 2-phase prompt, approve the phases** → build-loop diagram |
+| 26–31 | **Who's responsible?** | Core 8 cards while Claude builds phase 1. Stop when Claude finishes. |
+| 31–34 | Check in on Claude | Compare phase 1 with `home.png`, take class feedback, approve. Not done? Use the backup app. |
+| 34–38 | Ship it | git commit → front-end sub-agent |
+| 38–40 | Wrap | Homework Part II → exit ticket |
 
-**Why these activities:** *SPA Detective* is the same idea as your "which HTTP method am I using?" site tour. You drive real websites, they call it. The KSPA radio warm-up gives them a concrete "tell" (does the music stop?) before the real sites. *Who's Responsible?* fills the dead air while Claude builds, and drills the tech-stack and MCP/skill roles with problems they'll actually hit this week.
+**Why these activities:** *SPA Detective* is the same idea as your "which HTTP method am I using?" site tour. You drive real websites, they call it. *Who's Responsible?* fills the dead air while Claude builds, and drills the tech-stack and MCP/skill roles.
 
 ---
 

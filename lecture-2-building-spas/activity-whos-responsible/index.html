@@ -54,19 +54,19 @@
   const BANK = ['Node.js', 'npm', 'Vite', 'React', 'React Router', 'Context7 MCP', 'Playwright MCP', 'Chrome DevTools MCP', 'A skill', 'Your app_outline', 'git', 'A sub-agent']
   const Q = [
     ['You type <code>npm install</code> and the terminal says "command not found: npm".', 'Node.js', 'npm ships with Node. No Node = no npm, no Vite, no dev server. Install Node first.'],
-    ['You need to add React Router to your project.', 'npm', '<code>npm install react-router-dom</code> downloads it and records it in package.json, the shopping list.'],
     ['You want the app at localhost:5173, updating instantly every time Claude saves a file.', 'Vite', 'Vite runs the dev server and hot-reloads changes. Later it also builds the production version.'],
-    ['The same workout card appears on Home and History. You want to build it once and reuse it.', 'React', 'Reusable pieces of UI are components. That is React\'s whole idea.'],
     ['Clicking "History" changes the URL to /history, but the page area is blank.', 'React Router', 'Router maps URLs to components. No route matches /history (or no &lt;Outlet/&gt;), so nothing renders.'],
     ['Claude wrote code using a React Router feature that was removed two versions ago.', 'Context7 MCP', 'Claude\'s training data gets stale. Context7 pulls the current docs so it writes today\'s conventions.'],
     ['You want Claude to click through every page and screenshot it to compare against your wireframes.', 'Playwright MCP', 'Playwright drives a real browser: clicks, types, navigates, screenshots. It is Claude\'s eyes and hands.'],
-    ['The page is blank and there is a red error in the browser console that Claude can\'t see.', 'Chrome DevTools MCP', 'It lets Claude read the console, network requests, and performance, which is debugging below the visual layer.'],
     ['Everything works, but it looks like every other AI app: purple gradient, identical rounded cards.', 'A skill', 'Design skills (frontend-design, ui-ux-pro-max, taste) are rulebooks that push Claude past generic defaults.'],
-    ['Buttons and pages just pop in. You want smooth, tasteful animation.', 'A skill', 'Specifically design-motion-principles: easing, timing, micro-interactions.'],
     ['Claude built a Settings page you never asked for and skipped the History page.', 'Your app_outline', 'Missing or vague context. Wireframes + user stories per page (and building in phases) keep Claude on your plan.'],
+    ['You refresh the page and all your logged workouts disappear.', null, '<b>Nobody, that\'s expected (for now)</b>Our data lives in browser memory. Saving it permanently is the database\'s job, which comes in a later unit.'],
+    ['You need to add React Router to your project.', 'npm', '<code>npm install react-router-dom</code> downloads it and records it in package.json, the shopping list.'],
+    ['The same workout card appears on Home and History. You want to build it once and reuse it.', 'React', 'Reusable pieces of UI are components. That is React\'s whole idea.'],
+    ['The page is blank and there is a red error in the browser console that Claude can\'t see.', 'Chrome DevTools MCP', 'It lets Claude read the console, network requests, and performance, which is debugging below the visual layer.'],
+    ['Buttons and pages just pop in. You want smooth, tasteful animation.', 'A skill', 'Specifically design-motion-principles: easing, timing, micro-interactions.'],
     ['Phase 3 broke everything. You want to get back to when phase 2 worked.', 'git', 'Commit after every approved phase. Those commits are your save points.'],
     ['Every new project, you re-explain the same front-end setup, skills, and MCPs to Claude.', 'A sub-agent', 'Put it in .claude/agents/front-end-agent.md once, then spin it up anytime.'],
-    ['You refresh the page and all your logged workouts disappear.', null, '<b>Nobody, that\'s expected (for now)</b>Our data lives in browser memory. Saving it permanently is the database\'s job, which comes in a later unit.'],
   ]
   let i = 0
   const $ = (s) => document.querySelector(s)

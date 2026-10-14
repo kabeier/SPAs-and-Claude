@@ -36,15 +36,17 @@ cd backup-liftlog && npm install && npm run dev   # http://localhost:5173
 ```
 Screenshots of every page are in `backup-liftlog/screenshots/`.
 
-## 5 · In class (the ~10 live minutes)
+## 5 · In class (the ~13 live minutes)
 
 | When | Do | Say |
 |---|---|---|
-| ~min 26 | Show `app_outline/` in the file tree, open one `user_story.md` and its PNG | "This is the TLDraw homework, turned into a folder." |
-| ~min 28 | Paste `prompt.md` into Claude Code | Walk the prompt's parts (stack, skills, no API, context, MCPs, phases, confirm first) |
-| ~min 29 | Claude summarizes journey + proposes phases | **Approve the phases out loud.** "I'm the architect; I approve the plan." Let phase 1 run. |
-| ~min 31–37 | Run the Who's Responsible quiz while it builds | — |
-| ~min 37 | Back to Claude: open localhost:5173, show the Playwright screenshot next to `home.png` | Ask class: "Does it match? What feedback would you give?" Type one piece of their feedback in. |
-| ~min 41 | `git add -A && git commit -m "Phase 1: shell + Home"` | "Every approved phase gets a commit, which is a save point." |
+| ~min 21 | Show `app_outline/` in the file tree, open one `user_story.md` and its PNG | "This is the TLDraw homework, turned into a folder." |
+| ~min 22 | Paste the **short 2-phase prompt** from `prompt.md` into Claude Code | Walk the prompt's parts (stack, skills, no API, context, MCPs, phases, confirm first) |
+| ~min 24 | Claude summarizes journey + proposes phases | **Approve the phases out loud.** "I'm the architect; I approve the plan." Let phase 1 run. |
+| ~min 26–31 | Run the Who's Responsible quiz while it builds | Stop as soon as phase 1 is done |
+| ~min 31 | Back to Claude: open localhost:5173, show the Playwright screenshot next to `home.png` | Ask class: "Does it match? What feedback would you give?" Type one piece of their feedback in. |
+| ~min 34 | `git add -A && git commit -m "Phase 1: shell + Home"` | "Every approved phase gets a commit, which is a save point." |
 
 If Claude asks permission prompts during the demo, accept them. Consider starting Claude with auto-accept edits to keep it moving.
+
+If phase 1 isn't done by ~min 31, don't wait: switch to `backup-liftlog` for the comparison and let Claude keep going in the background.

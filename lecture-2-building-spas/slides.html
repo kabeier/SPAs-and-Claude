@@ -53,7 +53,7 @@
 
 <section class="slide activity" data-seg="Activity: SPA Detective" data-at="4">
   <h2>Activity: SPA Detective</h2>
-  <div class="countdown" data-sec="420"></div>
+  <div class="countdown" data-sec="300"></div>
   <ol class="steps">
     <li>Warm-up: the same radio site, built both ways. Watch the music timer.</li>
     <li>I visit real sites and click around</li>
@@ -63,32 +63,20 @@
   <p class="muted small" style="margin-top:24px">Page: activity-spa-detective/index.html</p>
   <aside class="notes">
     <p><b>Warm-up (2 min):</b> open KSPA traditional. Hit Listen live, type in Request a song, click Home. The timer resets, text is gone, and the "documents loaded" counter goes up. Then the SPA version: the music keeps going, the text survives, and the document timestamp never changes. "Same site. The only difference is how navigation works."</p>
-    <p><b>Lineup (4 min):</b> go down the table. For each site, do the action, count down, then everyone answers. For 2–3 of them open <b>DevTools → Network → Doc</b> and click a link. A new row means a full page load.</p>
+    <p><b>Lineup (3 min), just three sites:</b> YouTube (SPA: the video keeps playing), Wikipedia (TRAD: open <b>DevTools → Network → Doc</b>, click a link, a new row appears = full page load), then our curriculum site (TRAD, the fun reveal). For each: do the action, count down, everyone answers in chat. The rest of the table is extra if you're ahead.</p>
+    <p>Wrap with the three clues at the top of the page: the flash, things survive, DevTools proof.</p>
     <p>Good moments: the <b>curriculum site</b> is traditional (MkDocs static pages). <b>GitHub</b> is mostly a SPA now (Issues, PRs and Code tabs load no new document), but a few pages still full-load: "it's a spectrum, not a binary." <b>Netflix</b> is the homework clone.</p>
     <p>Press <b>K</b> on that page to show verdicts.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Activity: SPA Detective" data-at="11">
-  <h2>How to catch a SPA</h2>
-  <div class="grid3">
-    <div class="card"><h3>The flash</h3><p>Traditional pages blink white and the tab icon spins. SPAs swap content without a flash.</p></div>
-    <div class="card"><h3>Things survive</h3><p>Music keeps playing. Videos shrink to a mini-player. Half-typed text is still there.</p></div>
-    <div class="card"><h3>DevTools proof</h3><p>Network → <b>Doc</b>. Click a link. A new document row means a full reload.</p></div>
-  </div>
-  <p class="bottomline" style="margin-top:36px">What we build today is a SPA: data lives in the page's memory, so refresh resets it. (A database fixes that, later.)</p>
-</section>
-
 <!-- ============ TECH STACK (12–21) ============ -->
-<section class="slide statement" data-seg="Tech stack" data-at="12">
-  <h2>You won't write this code. You do need to know who's responsible for what.</h2>
-  <p>That's how you steer Claude, and how you know where to look when something breaks.</p>
-</section>
 
-<section class="slide diagram" data-seg="Tech stack" data-at="13">
+<section class="slide diagram" data-seg="Tech stack" data-at="9">
   <img src="../diagrams/L2-01-tech-stack.png" alt="Tech stack: Node engine, npm parts store, Vite workshop, React lego bricks, React Router receptionist">
   <div class="src">diagrams/L2-01-tech-stack.tldr</div>
   <aside class="notes">
+    <p>Open with: "You won't write this code. You do need to know who's responsible for what. That's how you steer Claude, and how you know where to look when something breaks."</p>
     <p>Bottom up:</p>
     <ul>
       <li><b>Node</b> runs JavaScript outside the browser (your laptop). Everything below depends on it.</li>
@@ -101,7 +89,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Tech stack" data-at="15">
+<section class="slide" data-seg="Tech stack" data-at="12">
   <h2>React builds the screen out of components</h2>
   <div class="cols wide-left">
     <div>
@@ -125,7 +113,7 @@ function WorkoutCard({ name, date }) {
   </aside>
 </section>
 
-<section class="slide diagram" data-seg="Tech stack" data-at="17">
+<section class="slide diagram" data-seg="Tech stack" data-at="13">
   <img src="../diagrams/L2-02-router-shell.png" alt="React Router reads the URL and swaps one component into the outlet while the navbar and footer stay">
   <div class="src">diagrams/L2-02-router-shell.tldr</div>
   <aside class="notes">
@@ -134,7 +122,7 @@ function WorkoutCard({ name, date }) {
   </aside>
 </section>
 
-<section class="slide" data-seg="Tech stack" data-at="19">
+<section class="slide" data-seg="Tech stack" data-at="15">
   <h2>Start the project: Vite does the scaffolding</h2>
   <div class="cols wide-left">
     <pre>npm create vite@latest
@@ -158,7 +146,7 @@ npm run dev
 </section>
 
 <!-- ============ EQUIP CLAUDE (21–28) ============ -->
-<section class="slide diagram" data-seg="Equip Claude Code" data-at="21">
+<section class="slide diagram" data-seg="Equip Claude Code" data-at="16">
   <img src="../diagrams/L2-03-toolbelt.png" alt="Claude Code receives context from app_outline, rules from skills, abilities from MCP servers, and can be packaged as a sub-agent">
   <div class="src">diagrams/L2-03-toolbelt.tldr</div>
   <aside class="notes">
@@ -166,7 +154,7 @@ npm run dev
   </aside>
 </section>
 
-<section class="slide" data-seg="Equip Claude Code" data-at="22">
+<section class="slide" data-seg="Equip Claude Code" data-at="17">
   <h2>MCP servers give Claude abilities</h2>
   <div class="grid3">
     <div class="card green"><h3>Context7</h3><p>Pulls the latest docs for our stack, so no deprecated functions.</p></div>
@@ -182,7 +170,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </aside>
 </section>
 
-<section class="slide" data-seg="Equip Claude Code" data-at="24">
+<section class="slide" data-seg="Equip Claude Code" data-at="19">
   <h2>Skills are rulebooks that push Claude past generic AI design</h2>
   <div class="cols">
     <div>
@@ -216,7 +204,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
 </section>
 
 <!-- ============ BUILD (26–41) ============ -->
-<section class="slide diagram" data-seg="Build it" data-at="26">
+<section class="slide diagram" data-seg="Build it" data-at="21">
   <img src="../diagrams/L2-05-app-outline.png" alt="app_outline folder structure mapped to its purpose">
   <div class="src">diagrams/L2-05-app-outline.tldr</div>
   <aside class="notes">
@@ -225,7 +213,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </aside>
 </section>
 
-<section class="slide" data-seg="Build it" data-at="28">
+<section class="slide" data-seg="Build it" data-at="22">
   <h2>The prompt: every part has a job</h2>
   <div class="grid2x4">
     <div class="card"><b>Stack</b><p>React + Vite, React Router with BrowserRouter</p></div>
@@ -239,12 +227,12 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </div>
   <p class="bottomline" style="margin-top:28px">Full text: demo-kit/prompt.md. Paste it now and let Claude start.</p>
   <aside class="notes">
-    <p><b>Kick off the live build here.</b> Paste demo-kit/prompt.md. Claude will summarize the journey and propose phases. Read the phases out loud and <b>approve them</b> ("I'm the architect"). Then let phase 1 run while we do the quiz.</p>
+    <p><b>Kick off the live build here.</b> Paste the <b>short 2-phase version</b> from demo-kit/prompt.md (bottom of the file). Claude will summarize the journey and propose phases. Read the phases out loud and <b>approve them</b> ("I'm the architect"). Then let phase 1 run while we do the quiz.</p>
     <p>"This prompt isn't the only way. Use everything you learned about prompt engineering."</p>
   </aside>
 </section>
 
-<section class="slide diagram" data-seg="Build it" data-at="30">
+<section class="slide diagram" data-seg="Build it" data-at="25">
   <img src="../diagrams/L2-04-build-loop.png" alt="Build loop: plan, build one phase, screenshot, compare with wireframe, you approve, git commit, next phase">
   <div class="src">diagrams/L2-04-build-loop.tldr</div>
   <aside class="notes">
@@ -252,9 +240,9 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </aside>
 </section>
 
-<section class="slide activity" data-seg="Activity: Who's responsible?" data-at="31">
+<section class="slide activity" data-seg="Activity: Who's responsible?" data-at="26">
   <h2>Activity: Who's responsible? (while Claude builds)</h2>
-  <div class="countdown" data-sec="360"></div>
+  <div class="countdown" data-sec="300"></div>
   <ol class="steps">
     <li>I show a problem you'll actually hit this week</li>
     <li>Type which tool is responsible: Node, npm, Vite, React, Router, an MCP, a skill, app_outline, git…</li>
@@ -262,12 +250,12 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </ol>
   <p class="muted small" style="margin-top:24px">Page: activity-whos-responsible/index.html</p>
   <aside class="notes">
-    <p>14 cards, about 25 seconds each. Space reveals, arrows move. If Claude needs an approval mid-quiz, pause and do it on screen, which makes the human-in-the-loop idea concrete.</p>
-    <p>The last card ("refresh wipes my data") is a trick: nobody's broken, that's expected without a database. Good bridge to the next units.</p>
+    <p>The first 8 cards are the core set, about 30 seconds each. <b>Stop as soon as Claude finishes phase 1</b>; cards 9–14 are extras if it's still working. Space reveals, arrows move. If Claude needs an approval mid-quiz, pause and do it on screen, which makes the human-in-the-loop idea concrete.</p>
+    <p>Card 8 ("refresh wipes my data") is a trick: nobody's broken, that's expected without a database. Good bridge to the next units.</p>
   </aside>
 </section>
 
-<section class="slide ask" data-seg="Build it" data-at="37">
+<section class="slide ask" data-seg="Build it" data-at="31">
   <div class="sticky">
     <div class="who">Back to Claude · unmute or chat</div>
     <div class="q">Does phase 1 match the wireframe? What feedback would you give Claude before approving?</div>
@@ -275,11 +263,11 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </div>
   <aside class="notes">
     <p>Open localhost:5173 and put it next to <code>app_outline/pages/home/home.png</code>. Take 2–3 pieces of feedback and type one into Claude as phase feedback. Then approve.</p>
-    <p><b>If the build stalled:</b> run <code>demo-kit/backup-liftlog</code> (<code>npm run dev</code>) and do the comparison with it. Same spec, already built.</p>
+    <p><b>If phase 1 isn't done by ~31 min:</b> don't wait. run <code>demo-kit/backup-liftlog</code> (<code>npm run dev</code>) and do the comparison with it. Same spec, already built.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Ship it" data-at="40">
+<section class="slide" data-seg="Ship it" data-at="34">
   <h2>Version control: every approved phase is a save point</h2>
   <div class="cols wide-left">
     <pre>git init
@@ -302,7 +290,7 @@ gh repo create liftlog --public --source=. --push</pre>
   </aside>
 </section>
 
-<section class="slide" data-seg="Ship it" data-at="42">
+<section class="slide" data-seg="Ship it" data-at="36">
   <h2>Package it as a front-end sub-agent</h2>
   <div class="cols wide-left">
     <pre style="font-size:20px"><span class="c"># .claude/agents/front-end-agent.md</span>
@@ -333,7 +321,7 @@ You are a Senior Front-End Engineer…</pre>
   </aside>
 </section>
 
-<section class="slide" data-seg="Wrap up" data-at="43">
+<section class="slide" data-seg="Wrap up" data-at="38">
   <h2>Homework, Part II</h2>
   <ol>
     <li><b>Build your app:</b> turn your Part I planning into an <code>app_outline/</code> and build the front-end SPA</li>
@@ -346,7 +334,7 @@ You are a Senior Front-End Engineer…</pre>
   </aside>
 </section>
 
-<section class="slide ask" data-seg="Wrap up" data-at="45">
+<section class="slide ask" data-seg="Wrap up" data-at="39">
   <div class="sticky">
     <div class="who">Exit ticket · in chat</div>
     <div class="q">Name one thing you'll put in your app_outline that Claude couldn't have guessed.</div>

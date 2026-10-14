@@ -15,7 +15,7 @@
   <h1>UI Fundamentals: draw the blueprint before Claude builds</h1>
   <p class="sub">What a UI is, why it matters, and how to plan one so an AI can build it.</p>
   <aside class="notes">
-    <p><b>Before class:</b> open the UI Crime Scene page (activity-ui-crime-scene/index.html) in a second tab, and open tldraw.com with <b>ACT-live-blueprint-board.tldr</b> dragged in. Press <b>T</b> to start the lecture clock when you begin.</p>
+    <p><b>Before class:</b> open the UI Crime Scene page (activity-ui-crime-scene/index.html) in a second tab,. Press <b>T</b> to start the lecture clock when you begin.</p>
     <p>Framing: "For the next two lectures we're building a real front-end app. Today we don't write code. We do the part AI can't do for us: decide what to build."</p>
   </aside>
 </section>
@@ -30,24 +30,12 @@
   </ul>
   <p class="bottomline">Next lecture, Claude Code turns today's blueprint into a working app.</p>
   <aside class="notes">
-    <p>Agenda out loud: ~10 min on what a UI is, a <b>crime scene</b> activity, ~10 min on planning, then we plan an app <b>together, live</b> in TLDraw.</p>
+    <p>Agenda out loud: a few minutes on what a UI is, a <b>crime scene</b> activity, then how to plan an app, ending with a finished example.</p>
     <p>Reassure week-2 students: "You don't need to know React yet. Today is thinking and drawing."</p>
   </aside>
 </section>
 
-<section class="slide ask" data-seg="Open" data-at="2">
-  <div class="sticky">
-    <div class="who">Everyone · in chat</div>
-    <div class="q">What app do you open most every day? What's the first thing you tap?</div>
-    <div class="how">Type it, but don't hit enter until I say go. 3… 2… 1…</div>
-  </div>
-  <aside class="notes">
-    <p><b>Chat waterfall.</b> Everyone posts at once, so nobody copies the first answer.</p>
-    <p>Pick 2–3 answers and point out that the first tap is a <b>UI element</b> (search bar, play button, the + to post). "Somebody decided that button goes there, at that size, in that color. That's UI design."</p>
-  </aside>
-</section>
-
-<section class="slide statement" data-seg="Open" data-at="4">
+<section class="slide statement" data-seg="Open" data-at="2">
   <h2>Claude Code can build almost anything. It can't read your mind.</h2>
   <p>Your superpower isn't syntax. It's communicating intent.</p>
   <aside class="notes">
@@ -55,7 +43,7 @@
   </aside>
 </section>
 
-<section class="slide diagram" data-seg="Open" data-at="5">
+<section class="slide diagram" data-seg="Open" data-at="3">
   <img src="../diagrams/L1-02-vague-vs-blueprint.png" alt="Vague prompt leads to a generic app; a blueprint leads to the app you designed">
   <div class="src">diagrams/L1-02-vague-vs-blueprint.tldr</div>
   <aside class="notes">
@@ -64,7 +52,7 @@
 </section>
 
 <!-- ============ WHAT IS A UI (5–13) ============ -->
-<section class="slide" data-seg="What is a UI?" data-at="6">
+<section class="slide" data-seg="What is a UI?" data-at="5">
   <h2>A user interface is everything a user can see, touch, click, type into, or get feedback from</h2>
   <div class="cols">
     <div>
@@ -87,43 +75,20 @@
   </aside>
 </section>
 
-<section class="slide diagram" data-seg="What is a UI?" data-at="8">
+<section class="slide diagram" data-seg="What is a UI?" data-at="7">
   <img src="../diagrams/L1-01-restaurant.png" alt="Restaurant analogy: dining room is the frontend, kitchen the backend, pantry the database">
   <div class="src">diagrams/L1-01-restaurant.tldr</div>
   <aside class="notes">
     <p>Three layers: <b>Frontend</b> (what users see), <b>Backend</b> (processes requests, business logic), <b>Database</b> (stores data).</p>
     <p>"World-class chefs, great recipes. But if the menu is confusing and nobody takes your order, you leave. You never taste the food." The UI is the only part users experience directly.</p>
     <p>Car dashboard: you steer and brake without understanding the transmission.</p>
+    <p>Then land why it matters: users judge the whole app by the UI. First impressions take seconds, and if they can't find a feature it doesn't exist. Your backend work is invisible without it.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="What is a UI?" data-at="10">
-  <h2>Users judge the whole app by its UI</h2>
-  <ul>
-    <li>It's the first impression. People decide in seconds.</li>
-    <li>Cluttered or outdated? Users assume the whole system is unreliable.</li>
-    <li>A confusing UI hides features. If users can't find it, it doesn't exist.</li>
-    <li>Your backend, database, and API work is invisible without it.</li>
-  </ul>
-  <aside class="notes">
-    <p>Example to riff on: a government or bank site that technically works but you can't find the button. vs. an app you'd recommend to a friend.</p>
-  </aside>
-</section>
-
-<section class="slide ask" data-seg="What is a UI?" data-at="11">
-  <div class="sticky">
-    <div class="who">Unmute or chat</div>
-    <div class="q">Name an app you stopped using because of the UI, not because it was broken.</div>
-    <div class="how">What exactly annoyed you?</div>
-  </div>
-  <aside class="notes">
-    <p>Take 2–3 answers. Name the problem category each time: "So the error message didn't tell you what to do," "So you couldn't find the setting." Those categories show up in the next activity.</p>
-  </aside>
-</section>
-
-<section class="slide activity" data-seg="Activity: UI Crime Scene" data-at="12">
+<section class="slide activity" data-seg="Activity: UI Crime Scene" data-at="9">
   <h2>Activity: UI Crime Scene</h2>
-  <div class="countdown" data-sec="420"></div>
+  <div class="countdown" data-sec="360"></div>
   <ol class="steps">
     <li>I'm sharing a page with numbered exhibits. Each one is a tiny UI that commits a crime.</li>
     <li>Take the exhibit number I assign you. Click it, type in it, break it.</li>
@@ -133,13 +98,13 @@
   <p class="muted small" style="margin-top:24px">Page: activity-ui-crime-scene/index.html</p>
   <aside class="notes">
     <p><b>Setup (1 min):</b> share the crime scene tab. Assign exhibits by roster order. 16 exhibits, so pair up or double up if the class is bigger. If students can open the page themselves (e.g. hosted on GitHub Pages), drop the link in chat.</p>
-    <p><b>Work (4 min)</b> on the countdown. While they work, click through the exhibits on your screen so people can see them in action.</p>
-    <p><b>Debrief (3 min):</b> ask 4–5 exhibits to present. Press <b>K</b> on the crime scene page to show the answer key and the planning question for each exhibit.</p>
-    <p>Best ones to debrief if short on time: #1 vague error, #2 form wipes, #4 delete with no confirm, #8 Cancel/OK, #14 offline message vanishes.</p>
+    <p><b>Work (3 min)</b> on the countdown. While they work, click through the exhibits on your screen so people can see them in action.</p>
+    <p><b>Debrief (2 min):</b> ask 3–4 exhibits to present. Press <b>K</b> on the crime scene page to show the answer key and the planning question for each exhibit.</p>
+    <p>Best ones to debrief: #1 vague error, #2 form wipes, #4 delete with no confirm, #8 Cancel/OK, #14 offline message vanishes.</p>
   </aside>
 </section>
 
-<section class="slide" data-seg="Activity: UI Crime Scene" data-at="20">
+<section class="slide" data-seg="Activity: UI Crime Scene" data-at="15">
   <h2>Every crime was a planning question nobody answered</h2>
   <div class="grid3">
     <div class="card red"><h3>"Error 0x8004"</h3><p>What should happen when login fails?</p></div>
@@ -156,7 +121,7 @@
 </section>
 
 <!-- ============ PLANNING (21–33) ============ -->
-<section class="slide diagram" data-seg="Plan your app" data-at="21">
+<section class="slide diagram" data-seg="Plan your app" data-at="16">
   <img src="../diagrams/L1-03-planning-pipeline.png" alt="Planning pipeline from idea to context package">
   <div class="src">diagrams/L1-03-planning-pipeline.tldr</div>
   <aside class="notes">
@@ -165,7 +130,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="22">
+<section class="slide" data-seg="Plan your app" data-at="17">
   <h2>Identify your application</h2>
   <div class="cols wide-left">
     <div>
@@ -189,7 +154,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="24">
+<section class="slide" data-seg="Plan your app" data-at="19">
   <h2>Who are the users?</h2>
   <div class="cols">
     <ul>
@@ -210,7 +175,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="25">
+<section class="slide" data-seg="Plan your app" data-at="21">
   <h2>Clarify features: users don't care about your code, they care about finishing tasks</h2>
   <div class="cols">
     <div>
@@ -232,7 +197,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="26">
+<section class="slide" data-seg="Plan your app" data-at="22">
   <h2>Information and actions: think CRUD</h2>
   <div class="grid4">
     <div class="card"><span class="tag green">C</span><h3>Create</h3><p>Log a new workout or set</p></div>
@@ -249,7 +214,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="28">
+<section class="slide" data-seg="Plan your app" data-at="24">
   <h2>Write the user journey: the step-by-step story of using your app</h2>
   <div class="cols">
     <div>
@@ -276,7 +241,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="29">
+<section class="slide" data-seg="Plan your app" data-at="26">
   <h2>Now draw it: screens in TLDraw</h2>
   <div class="cols">
     <div>
@@ -301,7 +266,7 @@
   </aside>
 </section>
 
-<section class="slide" data-seg="Plan your app" data-at="31">
+<section class="slide" data-seg="Plan your app" data-at="28">
   <h2>What should happen when something goes wrong?</h2>
   <div class="cols">
     <ul>
@@ -323,7 +288,7 @@
   </aside>
 </section>
 
-<section class="slide diagram" data-seg="Plan your app" data-at="32">
+<section class="slide diagram" data-seg="Plan your app" data-at="30">
   <img src="../diagrams/L1-05-workout-journey.png" alt="Workout Tracker user journey with error branches and three lo-fi wireframes">
   <div class="src">diagrams/L1-05-workout-journey.tldr</div>
   <aside class="notes">
@@ -333,25 +298,9 @@
 </section>
 
 <!-- ============ LIVE BLUEPRINT (33–43) ============ -->
-<section class="slide activity" data-seg="Activity: Live Blueprint" data-at="33">
-  <h2>Activity: let's blueprint an app together</h2>
-  <div class="countdown" data-sec="540"></div>
-  <ol class="steps">
-    <li>Vote in chat: <b>A</b> Study-group finder · <b>B</b> Roommate chore tracker · <b>C</b> Potluck planner</li>
-    <li>Rapid fire: I read a question, you answer in chat, I type the best answers into TLDraw</li>
-    <li>Together: journey, what goes wrong, then sketch the main screen</li>
-  </ol>
-  <aside class="notes">
-    <p><b>Setup:</b> switch to tldraw.com with <b>ACT-live-blueprint-board.tldr</b> loaded. Write the winner in the title.</p>
-    <p><b>Pace (9 min):</b> ~3 min for the 8 boxes (one answer each, don't perfect it), ~2 min for 5 journey steps, ~1 min for the "what could go wrong" row, ~3 min to sketch ONE screen with their call-outs ("What's the biggest button on this page?").</p>
-    <p>Keep asking "which question does this answer?" when someone proposes a feature.</p>
-    <p><b>Save the board</b> (File → Save a copy) and post the PNG in Slack. It's a model for homework.</p>
-    <p>If the vote is a tie, pick the chore tracker: it has multiple users (roommates), CRUD, and an obvious "what goes wrong" (nobody did the dishes).</p>
-  </aside>
-</section>
 
 <!-- ============ WRAP (42–45) ============ -->
-<section class="slide diagram" data-seg="Wrap up" data-at="42">
+<section class="slide diagram" data-seg="Wrap up" data-at="33">
   <img src="../diagrams/L1-04-eight-questions.png" alt="The 8-question practical template with Workout Tracker example answers">
   <div class="src">diagrams/L1-04-eight-questions.tldr</div>
   <aside class="notes">
@@ -359,12 +308,12 @@
   </aside>
 </section>
 
-<section class="slide statement" data-seg="Wrap up" data-at="43">
+<section class="slide statement" data-seg="Wrap up" data-at="35">
   <h2>AI accelerates execution. It doesn't replace architecture.</h2>
   <p>Your TLDraw sketches and user journey are the context package Claude Code needs. Designing the intent is the real engineering work.</p>
 </section>
 
-<section class="slide" data-seg="Wrap up" data-at="44">
+<section class="slide" data-seg="Wrap up" data-at="36">
   <h2>Homework, Part I</h2>
   <div class="cols">
     <div>
@@ -389,7 +338,7 @@
   </aside>
 </section>
 
-<section class="slide ask" data-seg="Wrap up" data-at="45">
+<section class="slide ask" data-seg="Wrap up" data-at="38">
   <div class="sticky">
     <div class="who">Exit ticket · in chat</div>
     <div class="q">In one sentence: what app will you build, and what problem does it solve?</div>
