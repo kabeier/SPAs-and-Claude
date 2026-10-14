@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KSPA 101.5 · single page app</title><link rel="stylesheet" href="../radio.css"></head>
+<body>
+<div class="bar">
+  <div class="logo">KSPA <span>101.5</span></div>
+  <nav><a href="#/" data-k="/">Home</a><a href="#/schedule" data-k="/schedule">Schedule</a><a href="#/request" data-k="/request">Request a song</a></nav>
+  <div class="player"><span class="eq"><i></i><i></i><i></i></span><span id="t">0:00</span><button id="play">▶ Listen live</button></div>
+</div>
+<div class="evidence"><span class="mode">SPA · one HTML file, JavaScript swaps the middle</span><span>HTML document loaded at <b id="loaded"></b></span><span>views shown so far: <b id="count">0</b></span></div>
+
+<!-- The "outlet": the only part that changes. Navbar + player above never reload. -->
+<main id="outlet"></main>
+
+<script>
+  // A ~25-line version of what React Router does for us.
+  const views = {
+    '/': () => `<h1>Independent radio, all day.</h1><p>Hit <b>Listen live</b>, let the timer run a few seconds, then click <b>Schedule</b>. Watch the timer and the yellow evidence bar.</p>`,
+    '/schedule': () => `<h1>This week</h1><table><tr><td>Mon 7am</td><td>Morning Drive with Dee</td></tr><tr><td>Wed 8pm</td><td>Synth Hour</td></tr><tr><td>Fri 10pm</td><td>Basement Tapes</td></tr></table>`,
+    '/request': () => `<h1>Request a song</h1><label for="song">Song and artist</label><input id="song" placeholder="e.g. Dreams by Fleetwood Mac"><label for="why">Why this song?</label><textarea id="why" rows="3" placeholder="Start typing, then click Home without submitting…"></textarea>`,
+  }
+  // Like React state: lives in memory as long as this one page is open
+  const draft = { song: '', why: '' }
+  let shown = 0
+
+  function render() {
+    const path = location.hash.slice(1) || '/'
+    const outlet = document.getElementById('outlet')
+    outlet.innerHTML = (views[path] || (() => '<h1>404</h1><p>No view matches this URL.</p>'))()
+    document.querySelectorAll('nav a').forEach((a) => a.classList.toggle('on', a.dataset.k === path))
+    // put the half-typed request back, and keep saving it as the user types
+    outlet.querySelectorAll('#song, #why').forEach((el) => { el.value = draft[el.id]; el.oninput = () => (draft[el.id] = el.value) })
+    document.getElementById('count').textContent = ++shown
+  }
+  addEventListener('hashchange', render) // URL changed → swap the view, no request to the server
+  render()
+
+  document.getElementById('loaded').textContent = new Date().toLocaleTimeString([], { hour12: false }) + '.' + String(Date.now() % 1000).padStart(3, '0')
+  let s = 0, tick = null
+  document.getElementById('play').onclick = (e) => {
+    if (tick) { clearInterval(tick); tick = null; e.target.textContent = '▶ Listen live'; document.body.classList.remove('playing'); return }
+    e.target.textContent = '❚❚ Pause'; document.body.classList.add('playing')
+    tick = setInterval(() => { s++; document.getElementById('t').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0') }, 1000)
+  }
+</script>
+</body></html>

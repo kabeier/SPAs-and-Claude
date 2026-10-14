@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KSPA 101.5 · traditional</title><link rel="stylesheet" href="../radio.css"></head>
+<body>
+<div class="bar">
+  <div class="logo">KSPA <span>101.5</span></div>
+  <nav><a href="index.html" data-k="home">Home</a><a href="schedule.html" data-k="schedule">Schedule</a><a href="request.html" data-k="request">Request a song</a></nav>
+  <div class="player"><span class="eq"><i></i><i></i><i></i></span><span id="t">0:00</span><button id="play">▶ Listen live</button></div>
+</div>
+<div class="evidence"><span class="mode">TRADITIONAL · a new HTML file per page</span><span>HTML document loaded at <b id="loaded"></b></span><span>documents loaded so far: <b id="count"></b></span></div>
+<main><h1>Request a song</h1><label for="song">Song and artist</label><input id="song" placeholder="e.g. Dreams by Fleetwood Mac"><label for="why">Why this song?</label><textarea id="why" rows="3" placeholder="Start typing, then click Home without submitting…"></textarea></main>
+<script>
+  document.querySelector('nav a[data-k="request"]').classList.add('on')
+  // Every click on a link asks the server for a brand-new HTML document, so this script runs again from zero
+  const n = Number(sessionStorage.getItem('mpaLoads') || 0) + 1; sessionStorage.setItem('mpaLoads', n)
+  document.getElementById('count').textContent = n
+  document.getElementById('loaded').textContent = new Date().toLocaleTimeString([], { hour12: false }) + '.' + String(Date.now() % 1000).padStart(3, '0')
+  let s = 0, tick = null
+  document.getElementById('play').onclick = (e) => {
+    if (tick) { clearInterval(tick); tick = null; e.target.textContent = '▶ Listen live'; document.body.classList.remove('playing'); return }
+    e.target.textContent = '❚❚ Pause'; document.body.classList.add('playing')
+    tick = setInterval(() => { s++; document.getElementById('t').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0') }, 1000)
+  }
+</script>
+</body></html>

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lecture 2 · Building Your SPA</title>
+<link rel="stylesheet" href="../shared/deck.css">
+</head>
+<body data-minutes="45">
+<div class="stage">
+
+<!-- ============ OPEN (0–3) ============ -->
+<section class="slide title" data-seg="Open" data-at="0">
+  <div class="kicker">Building Applications · Single Page Apps · Part 2 of 2</div>
+  <h1>Building your SPA: from blueprint to running app</h1>
+  <p class="sub">Last time you designed the intent. Today Claude Code builds it, and you stay the architect.</p>
+  <aside class="notes">
+    <p><b>Before class:</b> demo project scaffolded and committed (see demo-kit/RUNBOOK.md). Claude Code open in that folder. Tabs ready: SPA Detective page, Who's Responsible page, tldraw.com with your SPA vs traditional drawing. Press <b>T</b> to start the clock.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Open" data-at="1">
+  <h2>Today</h2>
+  <ul>
+    <li>What a single page application is, and how to catch one in the wild</li>
+    <li>Our stack: Node, npm, Vite, React, React Router. Who does what.</li>
+    <li>Equip Claude Code: MCP servers and design skills</li>
+    <li>Turn your wireframes into an <code>app_outline/</code> and build in phases, live</li>
+    <li>Save it with git, and package it as a reusable sub-agent</li>
+  </ul>
+  <aside class="notes">
+    <p>"Goal isn't to become a React expert today. It's to know what each tool is responsible for, so you can give Claude the context, tools, constraints, and feedback it needs."</p>
+  </aside>
+</section>
+
+<!-- ============ WHAT IS A SPA (2–12) ============ -->
+<section class="slide" data-seg="What is a SPA?" data-at="2">
+  <h2>A single page application loads one HTML page once, then updates parts of it as you click</h2>
+  <div class="cols">
+    <div class="card red">
+      <h3>Traditional website</h3>
+      <p>Every click asks the server for a brand-new page. The screen flashes, scroll resets, anything you typed is gone.</p>
+    </div>
+    <div class="card green">
+      <h3>Single page app</h3>
+      <p>The app loads once. Clicking swaps only the part that changed. Instant, smooth, and state survives.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Switch to your own TLDraw "SPA vs traditional" drawing here</b> and walk through it (2 min).</p>
+  </aside>
+</section>
+
+<section class="slide activity" data-seg="Activity: SPA Detective" data-at="4">
+  <h2>Activity: SPA Detective</h2>
+  <div class="countdown" data-sec="420"></div>
+  <ol class="steps">
+    <li>Warm-up: the same radio site, built both ways. Watch the music timer.</li>
+    <li>I visit real sites and click around</li>
+    <li>In chat, on "go": <b>SPA</b> or <b>TRAD</b>?</li>
+    <li>Then we check the evidence in DevTools</li>
+  </ol>
+  <p class="muted small" style="margin-top:24px">Page: activity-spa-detective/index.html</p>
+  <aside class="notes">
+    <p><b>Warm-up (2 min):</b> open KSPA traditional. Hit Listen live, type in Request a song, click Home. The timer resets, text is gone, and the "documents loaded" counter goes up. Then the SPA version: the music keeps going, the text survives, and the document timestamp never changes. "Same site. The only difference is how navigation works."</p>
+    <p><b>Lineup (4 min):</b> go down the table. For each site, do the action, count down, then everyone answers. For 2–3 of them open <b>DevTools → Network → Doc</b> and click a link. A new row means a full page load.</p>
+    <p>Good moments: the <b>curriculum site</b> is traditional (MkDocs static pages). <b>GitHub</b> is a hybrid, which leads to "it's a spectrum, not a binary." <b>Netflix</b> is the homework clone.</p>
+    <p>Press <b>K</b> on that page to show verdicts.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Activity: SPA Detective" data-at="11">
+  <h2>How to catch a SPA</h2>
+  <div class="grid3">
+    <div class="card"><h3>The flash</h3><p>Traditional pages blink white and the tab icon spins. SPAs swap content without a flash.</p></div>
+    <div class="card"><h3>Things survive</h3><p>Music keeps playing. Videos shrink to a mini-player. Half-typed text is still there.</p></div>
+    <div class="card"><h3>DevTools proof</h3><p>Network → <b>Doc</b>. Click a link. A new document row means a full reload.</p></div>
+  </div>
+  <p class="bottomline" style="margin-top:36px">What we build today is a SPA: data lives in the page's memory, so refresh resets it. (A database fixes that, later.)</p>
+</section>
+
+<!-- ============ TECH STACK (12–21) ============ -->
+<section class="slide statement" data-seg="Tech stack" data-at="12">
+  <h2>You won't write this code. You do need to know who's responsible for what.</h2>
+  <p>That's how you steer Claude, and how you know where to look when something breaks.</p>
+</section>
+
+<section class="slide diagram" data-seg="Tech stack" data-at="13">
+  <img src="../diagrams/L2-01-tech-stack.png" alt="Tech stack: Node engine, npm parts store, Vite workshop, React lego bricks, React Router receptionist">
+  <div class="src">diagrams/L2-01-tech-stack.tldr</div>
+  <aside class="notes">
+    <p>Bottom up:</p>
+    <ul>
+      <li><b>Node</b> runs JavaScript outside the browser (your laptop). Everything below depends on it.</li>
+      <li><b>npm</b> comes with Node and installs packages (React, Vite, Router). <code>package.json</code> is the shopping list plus scripts like <code>npm run dev</code>.</li>
+      <li><b>Vite</b> creates the project, runs the fast dev server (localhost:5173), and builds for production.</li>
+      <li><b>React</b> builds the UI from reusable components and updates only what changed.</li>
+      <li><b>React Router DOM</b> looks at the URL and decides which component to show, without reloading.</li>
+    </ul>
+    <p>One-liner to repeat: "Node runs your JavaScript, npm manages what your project depends on."</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Tech stack" data-at="15">
+  <h2>React builds the screen out of components</h2>
+  <div class="cols wide-left">
+    <div>
+      <p>A component is a reusable piece of UI: a button, a workout card, a navbar.</p>
+      <p>Build a <code>&lt;WorkoutCard&gt;</code> once, use it on Home and History.</p>
+      <p>When data changes, React updates only that part of the page.</p>
+      <p class="muted small">Not automatically "the best," but popular, flexible, huge ecosystem, and it pairs well with Vite and Router.</p>
+    </div>
+    <pre><span class="c">// a component is a function that returns UI</span>
+function WorkoutCard({ name, date }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p&gt;{date}&lt;/p&gt;
+    &lt;/div&gt;
+  )
+}</pre>
+  </div>
+  <aside class="notes">
+    <p>Don't teach syntax. The point is "components are LEGO bricks." Tie back to Lecture 1: every box in your wireframe will probably become a component.</p>
+  </aside>
+</section>
+
+<section class="slide diagram" data-seg="Tech stack" data-at="17">
+  <img src="../diagrams/L2-02-router-shell.png" alt="React Router reads the URL and swaps one component into the outlet while the navbar and footer stay">
+  <div class="src">diagrams/L2-02-router-shell.tldr</div>
+  <aside class="notes">
+    <p>React has no routing built in, so React Router fills that gap: routes, links, navigation, URL params like <code>/workout/42</code>.</p>
+    <p>The navbar and footer never reload. Only the outlet swaps. That's exactly what they saw in the KSPA radio SPA, which is about 25 lines of a hand-rolled router.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Tech stack" data-at="19">
+  <h2>Start the project: Vite does the scaffolding</h2>
+  <div class="cols wide-left">
+    <pre>npm create vite@latest
+<span class="c"># Project name?     liftlog
+# Framework?        React
+# Variant?          JavaScript
+# Install + start?  Yes</span>
+
+npm install react-router-dom
+npm run dev
+<span class="c"># → http://localhost:5173</span></pre>
+    <div class="card blue">
+      <h3>Or just ask Claude</h3>
+      <p>"Create a React + Vite project with react-router-dom using npm, named liftlog, and run it on the dev server."</p>
+      <p class="muted">Either way you get the same files. We won't deep-dive into them.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If you scaffolded the night before, show the running default Vite page at localhost:5173 instead of waiting on installs.</p>
+  </aside>
+</section>
+
+<!-- ============ EQUIP CLAUDE (21–28) ============ -->
+<section class="slide diagram" data-seg="Equip Claude Code" data-at="21">
+  <img src="../diagrams/L2-03-toolbelt.png" alt="Claude Code receives context from app_outline, rules from skills, abilities from MCP servers, and can be packaged as a sub-agent">
+  <div class="src">diagrams/L2-03-toolbelt.tldr</div>
+  <aside class="notes">
+    <p>"We can't read the code yet, so we have to give Claude the best tools possible." Context is <b>what</b> to build, skills are <b>how it should look</b>, MCPs are <b>abilities</b> (docs, eyes, debugger). You're the general contractor.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Equip Claude Code" data-at="22">
+  <h2>MCP servers give Claude abilities</h2>
+  <div class="grid3">
+    <div class="card green"><h3>Context7</h3><p>Pulls the latest docs for our stack, so no deprecated functions.</p></div>
+    <div class="card green"><h3>Playwright</h3><p>Drives a real browser: clicks, types, screenshots. It checks pages against your wireframes.</p></div>
+    <div class="card green"><h3>Chrome DevTools</h3><p>Reads the console, network, and performance. Debugging beyond what's visible.</p></div>
+  </div>
+  <pre style="margin-top:28px;font-size:21px">claude mcp add --scope user playwright      -- npx -y @playwright/mcp@latest
+claude mcp add --scope user context7        -- npx -y @upstash/context7-mcp
+claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
+<span class="c"># then inside Claude Code:  /mcp</span></pre>
+  <aside class="notes">
+    <p>They already have Playwright from a previous lecture. Show <code>/mcp</code> in your Claude session with all three connected.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Equip Claude Code" data-at="24">
+  <h2>Skills are rulebooks that push Claude past generic AI design</h2>
+  <div class="cols">
+    <div>
+      <ul class="small">
+        <li><b>frontend-design</b>: Anthropic's official skill. Distinctive type, palette, layout.</li>
+        <li><b>ui-ux-pro-max</b>: UI/UX rules, component patterns, responsive layout</li>
+        <li><b>taste</b>: dials for variance and density, bans the "AI slop" defaults</li>
+        <li><b>design-motion-principles</b>: easing, timing, micro-interactions</li>
+      </ul>
+      <p class="small muted" style="margin-top:14px">Claude auto-detects <code>.claude/skills/&lt;name&gt;/SKILL.md</code>. Check with <code>/skills</code>.</p>
+    </div>
+    <pre style="font-size:20px">your-project/
+├── .claude/
+│   └── skills/
+│       ├── frontend-design/
+│       │   └── SKILL.md
+│       ├── ui-ux-pro-max/
+│       │   ├── SKILL.md
+│       │   ├── data/      <span class="c">← 70+ files!</span>
+│       │   └── scripts/
+│       ├── taste-skill/
+│       └── design-motion-principles/
+│           ├── SKILL.md
+│           └── references/
+└── ...</pre>
+  </div>
+  <aside class="notes">
+    <p><b>Heads up, curriculum bug:</b> on the course page, the curl commands for UI UX Pro Max and Design Motion return <b>404</b>, and even the working ones only grab SKILL.md, leaving out the data/references folders the skill relies on. Teach it as "a skill is a <b>folder</b>, not a file." Give students <code>demo-kit/setup-skills.sh</code> (tested), which clones all four complete.</p>
+    <p>Run <code>/skills</code> live to show they loaded.</p>
+  </aside>
+</section>
+
+<!-- ============ BUILD (26–41) ============ -->
+<section class="slide diagram" data-seg="Build it" data-at="26">
+  <img src="../diagrams/L2-05-app-outline.png" alt="app_outline folder structure mapped to its purpose">
+  <div class="src">diagrams/L2-05-app-outline.tldr</div>
+  <aside class="notes">
+    <p>"Your Lecture 1 homework becomes this folder." One folder per page means Claude works on one page at a time: <b>limit context, isolate scope</b>.</p>
+    <p>Switch to your editor: show <code>app_outline/</code> in the demo project, open <code>pages/home/user_story.md</code> next to <code>home.png</code>.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Build it" data-at="28">
+  <h2>The prompt: every part has a job</h2>
+  <div class="grid2x4">
+    <div class="card"><b>Stack</b><p>React + Vite, React Router with BrowserRouter</p></div>
+    <div class="card"><b>Skills</b><p>Name all four, so Claude uses them</p></div>
+    <div class="card"><b>Constraint</b><p>No API. Data lives in the browser and refresh resets it.</p></div>
+    <div class="card"><b>Context</b><p>Read user_journey → app.png → each page's wireframe + story → style guide</p></div>
+    <div class="card"><b>Docs</b><p>Use Context7 for current conventions</p></div>
+    <div class="card"><b>Verify</b><p>Playwright screenshot of each page, compared to its wireframe</p></div>
+    <div class="card"><b>Phases</b><p>Claude proposes phases + pass conditions. <i>You</i> approve each one.</p></div>
+    <div class="card"><b>Confirm first</b><p>Summarize the journey and list pages before any code</p></div>
+  </div>
+  <p class="bottomline" style="margin-top:28px">Full text: demo-kit/prompt.md. Paste it now and let Claude start.</p>
+  <aside class="notes">
+    <p><b>Kick off the live build here.</b> Paste demo-kit/prompt.md. Claude will summarize the journey and propose phases. Read the phases out loud and <b>approve them</b> ("I'm the architect"). Then let phase 1 run while we do the quiz.</p>
+    <p>"This prompt isn't the only way. Use everything you learned about prompt engineering."</p>
+  </aside>
+</section>
+
+<section class="slide diagram" data-seg="Build it" data-at="30">
+  <img src="../diagrams/L2-04-build-loop.png" alt="Build loop: plan, build one phase, screenshot, compare with wireframe, you approve, git commit, next phase">
+  <div class="src">diagrams/L2-04-build-loop.tldr</div>
+  <aside class="notes">
+    <p>While Claude works: this is the loop it's running. The human-in-the-loop step (purple) is the important one. Small phases mean small context and fewer mistakes, and a bad phase only rolls back one commit.</p>
+  </aside>
+</section>
+
+<section class="slide activity" data-seg="Activity: Who's responsible?" data-at="31">
+  <h2>Activity: Who's responsible? (while Claude builds)</h2>
+  <div class="countdown" data-sec="360"></div>
+  <ol class="steps">
+    <li>I show a problem you'll actually hit this week</li>
+    <li>Type which tool is responsible: Node, npm, Vite, React, Router, an MCP, a skill, app_outline, git…</li>
+    <li>Hit enter on "go." Then we reveal.</li>
+  </ol>
+  <p class="muted small" style="margin-top:24px">Page: activity-whos-responsible/index.html</p>
+  <aside class="notes">
+    <p>14 cards, about 25 seconds each. Space reveals, arrows move. If Claude needs an approval mid-quiz, pause and do it on screen, which makes the human-in-the-loop idea concrete.</p>
+    <p>The last card ("refresh wipes my data") is a trick: nobody's broken, that's expected without a database. Good bridge to the next units.</p>
+  </aside>
+</section>
+
+<section class="slide ask" data-seg="Build it" data-at="37">
+  <div class="sticky">
+    <div class="who">Back to Claude · unmute or chat</div>
+    <div class="q">Does phase 1 match the wireframe? What feedback would you give Claude before approving?</div>
+    <div class="how">Compare the Playwright screenshot to home.png. Look at layout, missing elements, empty state.</div>
+  </div>
+  <aside class="notes">
+    <p>Open localhost:5173 and put it next to <code>app_outline/pages/home/home.png</code>. Take 2–3 pieces of feedback and type one into Claude as phase feedback. Then approve.</p>
+    <p><b>If the build stalled:</b> run <code>demo-kit/backup-liftlog</code> (<code>npm run dev</code>) and do the comparison with it. Same spec, already built.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Ship it" data-at="40">
+  <h2>Version control: every approved phase is a save point</h2>
+  <div class="cols wide-left">
+    <pre>git init
+git add -A
+git commit -m "Phase 1: app shell + Home"
+
+<span class="c"># create the GitHub repo and push</span>
+gh repo create liftlog --public --source=. --push</pre>
+    <div class="card">
+      <h3>Why it matters</h3>
+      <ul class="small">
+        <li>Phase 3 broke everything? Go back to phase 2.</li>
+        <li>Share your code with teammates and instructors</li>
+        <li>Your Claude sessions come and go. The repo stays.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Do the commit live. You can also ask Claude: "commit this phase with a descriptive message."</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Ship it" data-at="42">
+  <h2>Package it as a front-end sub-agent</h2>
+  <div class="cols wide-left">
+    <pre style="font-size:20px"><span class="c"># .claude/agents/front-end-agent.md</span>
+---
+name: front-end-agent
+description: Builds, maintains, and tests React
+  SPAs with responsive, accessible UI/UX.
+model: sonnet
+mcpServers:
+  - context7
+  - playwright
+  - chrome-devtools
+skills:
+  - frontend-design
+  - ui-ux-pro-max
+  - design-taste-frontend
+  - design-motion-principles
+---
+You are a Senior Front-End Engineer…</pre>
+    <div class="card blue">
+      <h3>Set it up once, reuse it everywhere</h3>
+      <p class="small">A specialist teammate that already knows its skills, MCPs, and workflow: analyze → plan → implement → test → document.</p>
+      <p class="small muted"><code>skills:</code> uses each skill's <code>name</code>. Taste's name is <code>design-taste-frontend</code>.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Full file: demo-kit/.claude/agents/front-end-agent.md. The curriculum version lists <code>taste-skill</code>, but subagents preload skills by their <b>name</b> field, which is <code>design-taste-frontend</code>. Claude Code silently ignores names it can't match.</p>
+  </aside>
+</section>
+
+<section class="slide" data-seg="Wrap up" data-at="43">
+  <h2>Homework, Part II</h2>
+  <ol>
+    <li><b>Build your app:</b> turn your Part I planning into an <code>app_outline/</code> and build the front-end SPA</li>
+    <li><b>Netflix clone:</b> use Claude Code, skills, context, and MCPs to build your SPA</li>
+    <li><b>FreeCodeCamp:</b> 100 steps of the JavaScript certification</li>
+  </ol>
+  <p class="bottomline">Checklist: skills folder ✓ · MCPs connected ✓ · app_outline ✓ · phases approved ✓ · pushed to GitHub ✓</p>
+  <aside class="notes">
+    <p>Note: the assignments page says "JavaScript Certification: complete 100 steps for receiving your Python Certification." It's a typo; it means JavaScript.</p>
+    <p>Share demo-kit/setup-skills.sh in Slack so students don't hit the 404s.</p>
+  </aside>
+</section>
+
+<section class="slide ask" data-seg="Wrap up" data-at="45">
+  <div class="sticky">
+    <div class="who">Exit ticket · in chat</div>
+    <div class="q">Name one thing you'll put in your app_outline that Claude couldn't have guessed.</div>
+    <div class="how">That's the part only you can do.</div>
+  </div>
+</section>
+
+</div>
+<script src="../shared/deck.js"></script>
+</body>
+</html>

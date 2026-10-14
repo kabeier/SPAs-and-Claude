@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who's responsible?</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#f4f6f9; --grid:#dce3ee; --ink:#1b2230; --muted:#5b6577; --blue:#2552c9; --green:#13795b; --red:#c8372d; --sticky:#ffe76a; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; color: var(--ink); display: grid; grid-template-rows: auto 1fr auto;
+    background: var(--paper) linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 40px 40px,
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 40px 40px; }
+  header { padding: 20px 36px 0; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+  h1 { font: 800 40px 'Bricolage Grotesque', sans-serif; margin: 0; letter-spacing: -0.02em; }
+  .count { font: 700 20px 'JetBrains Mono', monospace; color: var(--muted); }
+  .bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 36px 0; }
+  .bank span { font: 700 16px 'JetBrains Mono', monospace; background: #fff; border: 2px solid var(--ink); border-radius: 6px; padding: 5px 10px; }
+  .bank span.hit { background: var(--green); border-color: var(--green); color: #fff; }
+  .stagearea { display: grid; place-items: center; padding: 20px 36px; }
+  .card { width: min(1100px, 100%); background: var(--sticky); padding: 48px 56px; transform: rotate(-1deg);
+    box-shadow: 0 18px 30px -12px rgb(27 34 48 / 0.35); }
+  .who { font: 700 18px 'JetBrains Mono', monospace; margin-bottom: 14px; }
+  .q { font: 700 clamp(30px, 3.6vw, 52px)/1.15 'Bricolage Grotesque', sans-serif; letter-spacing: -0.01em; }
+  .a { margin-top: 30px; background: #fff; border-left: 10px solid var(--green); padding: 18px 24px; font-size: clamp(20px, 2vw, 28px); line-height: 1.4; display: none; }
+  .a b { display: block; font: 800 clamp(28px, 3vw, 42px) 'Bricolage Grotesque', sans-serif; color: var(--green); }
+  .card.revealed .a { display: block; }
+  footer { padding: 0 36px 18px; display: flex; gap: 10px; align-items: center; font: 500 14px 'JetBrains Mono'; color: var(--muted); }
+  footer button { font: 700 16px 'Atkinson Hyperlegible'; padding: 10px 18px; border-radius: 8px; border: 2px solid var(--ink); background: #fff; cursor: pointer; }
+  footer button.go { background: var(--blue); color: #fff; border-color: var(--blue); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Who's responsible?</h1>
+  <span class="count" id="count"></span>
+</header>
+<div>
+  <div class="bank" id="bank"></div>
+</div>
+<div class="stagearea">
+  <div class="card" id="card">
+    <div class="who">In chat · type your answer, hit enter on "go"</div>
+    <div class="q" id="q"></div>
+    <div class="a" id="a"></div>
+  </div>
+</div>
+<footer>
+  <button id="prev">← Back</button><button class="go" id="reveal">Reveal (space)</button><button id="next">Next →</button>
+  <span>← → to move · space to reveal</span>
+</footer>
+<script>
+  const BANK = ['Node.js', 'npm', 'Vite', 'React', 'React Router', 'Context7 MCP', 'Playwright MCP', 'Chrome DevTools MCP', 'A skill', 'Your app_outline', 'git', 'A sub-agent']
+  const Q = [
+    ['You type <code>npm install</code> and the terminal says "command not found: npm".', 'Node.js', 'npm ships with Node. No Node = no npm, no Vite, no dev server. Install Node first.'],
+    ['You need to add React Router to your project.', 'npm', '<code>npm install react-router-dom</code> downloads it and records it in package.json, the shopping list.'],
+    ['You want the app at localhost:5173, updating instantly every time Claude saves a file.', 'Vite', 'Vite runs the dev server and hot-reloads changes. Later it also builds the production version.'],
+    ['The same workout card appears on Home and History. You want to build it once and reuse it.', 'React', 'Reusable pieces of UI are components. That is React\'s whole idea.'],
+    ['Clicking "History" changes the URL to /history, but the page area is blank.', 'React Router', 'Router maps URLs to components. No route matches /history (or no &lt;Outlet/&gt;), so nothing renders.'],
+    ['Claude wrote code using a React Router feature that was removed two versions ago.', 'Context7 MCP', 'Claude\'s training data gets stale. Context7 pulls the current docs so it writes today\'s conventions.'],
+    ['You want Claude to click through every page and screenshot it to compare against your wireframes.', 'Playwright MCP', 'Playwright drives a real browser: clicks, types, navigates, screenshots. It is Claude\'s eyes and hands.'],
+    ['The page is blank and there is a red error in the browser console that Claude can\'t see.', 'Chrome DevTools MCP', 'It lets Claude read the console, network requests, and performance, which is debugging below the visual layer.'],
+    ['Everything works, but it looks like every other AI app: purple gradient, identical rounded cards.', 'A skill', 'Design skills (frontend-design, ui-ux-pro-max, taste) are rulebooks that push Claude past generic defaults.'],
+    ['Buttons and pages just pop in. You want smooth, tasteful animation.', 'A skill', 'Specifically design-motion-principles: easing, timing, micro-interactions.'],
+    ['Claude built a Settings page you never asked for and skipped the History page.', 'Your app_outline', 'Missing or vague context. Wireframes + user stories per page (and building in phases) keep Claude on your plan.'],
+    ['Phase 3 broke everything. You want to get back to when phase 2 worked.', 'git', 'Commit after every approved phase. Those commits are your save points.'],
+    ['Every new project, you re-explain the same front-end setup, skills, and MCPs to Claude.', 'A sub-agent', 'Put it in .claude/agents/front-end-agent.md once, then spin it up anytime.'],
+    ['You refresh the page and all your logged workouts disappear.', null, '<b>Nobody, that\'s expected (for now)</b>Our data lives in browser memory. Saving it permanently is the database\'s job, which comes in a later unit.'],
+  ]
+  let i = 0
+  const $ = (s) => document.querySelector(s)
+  $('#bank').innerHTML = BANK.map((b) => `<span>${b}</span>`).join('')
+  function draw() {
+    const [q, ans, why] = Q[i]
+    $('#card').classList.remove('revealed')
+    $('#q').innerHTML = q
+    $('#a').innerHTML = ans ? `<b>${ans}</b>${why}` : why
+    $('#count').textContent = `${i + 1} / ${Q.length}`
+    document.querySelectorAll('#bank span').forEach((s) => s.classList.remove('hit'))
+  }
+  function reveal() {
+    $('#card').classList.add('revealed')
+    const ans = Q[i][1]
+    document.querySelectorAll('#bank span').forEach((s) => s.classList.toggle('hit', s.textContent === ans))
+  }
+  const go = (n) => { i = Math.min(Math.max(n, 0), Q.length - 1); draw() }
+  $('#prev').onclick = () => go(i - 1); $('#next').onclick = () => go(i + 1); $('#reveal').onclick = reveal
+  addEventListener('keydown', (e) => {
+    if (e.key === ' ') { e.preventDefault(); reveal() }
+    if (e.key === 'ArrowRight') go(i + 1)
+    if (e.key === 'ArrowLeft') go(i - 1)
+  })
+  draw()
+</script>
+</body>
+</html>

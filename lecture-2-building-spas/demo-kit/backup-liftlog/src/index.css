@@ -1,0 +1,1020 @@
+/* =========================================================
+   Liftlog — "gym notebook meets scoreboard"
+   Chalk background, iron text, ONE accent (safety orange)
+   used only for primary actions and personal records.
+   ========================================================= */
+
+:root {
+  --chalk: #f3f4f0;      /* page background */
+  --paper: #ffffff;      /* inputs, rows */
+  --iron: #1d2125;       /* text + dark slabs */
+  --iron-2: #2b3036;     /* slightly lighter iron */
+  --graphite: #575e66;   /* secondary text (AA on chalk) */
+  --rule: #d4d7d0;       /* borders, dividers */
+  --accent: #ff5b14;     /* safety orange: primary buttons + PRs */
+  --accent-dark: #e04a08;
+  --error: #c0122e;      /* crimson: clearly not the orange */
+  --error-bg: #fbe9ec;
+
+  --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+
+  --radius: 6px;
+  --tabbar-h: 68px;
+
+  color: var(--iron);
+  background: var(--chalk);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--iron);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- App frame ---------- */
+
+.app {
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--chalk);
+}
+
+.page {
+  padding: 20px 20px calc(var(--tabbar-h) + 40px + env(safe-area-inset-bottom));
+  animation: page-in 180ms ease-out;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* On wide screens: the phone column sits on a darker "gym floor" */
+@media (min-width: 600px) {
+  body {
+    background: #dfe2dc;
+  }
+  .app {
+    border-inline: 1px solid var(--rule);
+  }
+}
+
+/* ---------- Headings ---------- */
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin: 8px 0 22px;
+}
+
+.brand {
+  width: 100%;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--graphite);
+  letter-spacing: 0.02em;
+}
+
+.display {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 3.1rem;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.subtle {
+  width: 100%;
+  color: var(--graphite);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--graphite);
+  margin-bottom: 4px;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 2px solid var(--iron);
+  border-radius: var(--radius);
+  background: transparent;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 80ms ease, background-color 120ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Primary = the orange "go" button. Iron text keeps contrast AA. */
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--iron);
+  color: var(--iron);
+  box-shadow: 0 3px 0 var(--iron);
+}
+
+.btn-primary:hover {
+  background: #ff6d2c;
+}
+
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--iron);
+}
+
+.btn-big {
+  width: 100%;
+  min-height: 60px;
+  font-size: 1.65rem;
+}
+
+.btn-ghost:hover {
+  background: var(--paper);
+}
+
+.btn-line {
+  width: 100%;
+  min-height: 44px;
+  font-size: 1.15rem;
+  border-width: 1.5px;
+  background: var(--paper);
+}
+
+.btn-dashed {
+  width: 100%;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: var(--graphite);
+  color: var(--iron);
+}
+
+.btn-dashed:hover {
+  border-color: var(--iron);
+  background: var(--paper);
+}
+
+.btn-danger {
+  background: var(--error);
+  border-color: var(--error);
+  color: #fff;
+}
+
+.btn-danger-ghost {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.btn-danger-ghost:hover {
+  background: var(--error-bg);
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--graphite);
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.text-btn {
+  min-height: 44px;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: none;
+  font-weight: 700;
+  color: var(--graphite);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.text-btn:hover {
+  color: var(--iron);
+}
+
+.actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.actions-row {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ---------- Home ---------- */
+
+/* The "last workout" card is a dark iron slab you can tap */
+.last-card {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 18px 20px 16px;
+  border-radius: var(--radius);
+  background: var(--iron);
+  color: var(--chalk);
+  text-decoration: none;
+}
+
+.last-card:hover {
+  background: var(--iron-2);
+}
+
+.last-card:focus-visible {
+  outline-color: var(--accent);
+  outline-offset: 3px;
+}
+
+.last-label {
+  font-size: 0.9rem;
+  color: #b9bfc5;
+}
+
+.last-name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+  margin: 2px 0 6px;
+}
+
+.last-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #d9dde0;
+}
+
+.stat {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+  padding: 16px 0 4px;
+  border-top: 2px solid var(--iron);
+}
+
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 5.5rem;
+  line-height: 0.8;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-unit {
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* Last-7-days strip: filled box = trained that day */
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.week-day {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.week-box {
+  width: 100%;
+  height: 26px;
+  border: 2px solid var(--rule);
+  border-radius: 3px;
+}
+
+.is-trained .week-box {
+  background: var(--iron);
+  border-color: var(--iron);
+}
+
+.is-today .week-box {
+  border-color: var(--iron);
+  border-style: dashed;
+}
+
+.is-today.is-trained .week-box {
+  border-style: solid;
+}
+
+.week-letter {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--graphite);
+}
+
+.is-today .week-letter {
+  color: var(--iron);
+}
+
+/* ---------- Empty states ---------- */
+
+.empty {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 22px 20px;
+  border: 2px dashed var(--rule);
+  border-radius: var(--radius);
+}
+
+.empty .btn-big {
+  margin-top: 8px;
+}
+
+.empty-page {
+  margin-top: 30px;
+}
+
+.empty-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.05;
+}
+
+.empty-text {
+  color: var(--graphite);
+}
+
+.big-404 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 7rem;
+  line-height: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Inputs ---------- */
+
+.text-input,
+.select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 2px solid var(--iron);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.select {
+  appearance: none;
+  padding-right: 40px;
+  font-weight: 700;
+  /* hand-drawn chevron so the select matches the rest of the UI */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%231d2125' stroke-width='2.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+.name-input {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  min-height: 56px;
+}
+
+/* ---------- Log form ---------- */
+
+.log-form {
+  display: grid;
+  gap: 16px;
+}
+
+.block {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 2px solid var(--iron);
+  border-radius: var(--radius);
+  background: var(--paper);
+  /* faint ruled lines, like a training notebook page */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 31px,
+    #eef0eb 31px 32px
+  );
+}
+
+.block-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.block-index {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 0.9;
+  min-width: 26px;
+}
+
+.block-picker {
+  flex: 1;
+}
+
+.block-empty {
+  color: var(--graphite);
+  font-size: 0.95rem;
+}
+
+.other {
+  margin-left: 38px;
+}
+
+.sets {
+  display: grid;
+  gap: 8px;
+}
+
+/* One set row: [n] [weight lb] × [reps] [trash] */
+.set {
+  display: grid;
+  grid-template-columns: 22px 1fr auto 1fr 44px;
+  align-items: start;
+  gap: 6px;
+  animation: set-in 200ms ease-out;
+}
+
+@keyframes set-in {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+}
+
+.set-num,
+.times {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 52px;
+  color: var(--graphite);
+  text-align: center;
+}
+
+.num-input {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 10px 0 8px;
+  border: 2px solid var(--iron);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.num-input:focus-within {
+  box-shadow: 0 0 0 3px rgba(29, 33, 37, 0.18);
+}
+
+.num-input input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  text-align: right;
+  /* weights & reps look like scoreboard digits */
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.num-input input::placeholder {
+  color: #b9bdb6;
+}
+
+.unit {
+  margin-left: 5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--graphite);
+}
+
+.num-input.has-error {
+  border-color: var(--error);
+  background: var(--error-bg);
+}
+
+.num-input.has-error input {
+  color: var(--error);
+}
+
+.error {
+  margin-top: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--error);
+}
+
+.error::before {
+  content: '! ';
+}
+
+.form-error {
+  padding: 10px 12px;
+  border-left: 4px solid var(--error);
+  background: var(--error-bg);
+  color: var(--error);
+  font-weight: 700;
+}
+
+.finish {
+  display: grid;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* ---------- History ---------- */
+
+.controls {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.rows {
+  display: grid;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 10px 12px 10px 10px;
+  border: 2px solid var(--iron);
+  border-radius: var(--radius);
+  background: var(--paper);
+  text-decoration: none;
+}
+
+.row:hover {
+  background: #fafaf7;
+  box-shadow: 0 3px 0 var(--iron);
+}
+
+/* Date as a small scoreboard tile */
+.row-date {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  padding: 4px 0 2px;
+  border-radius: 4px;
+  background: var(--iron);
+  color: var(--chalk);
+  font-family: var(--display);
+  line-height: 1;
+}
+
+.row-month {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.row-day {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.row-body {
+  flex: 1;
+  display: grid;
+}
+
+.row-name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.row-meta {
+  font-size: 0.9rem;
+  color: var(--graphite);
+}
+
+.prs {
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 2px solid var(--iron);
+}
+
+.trophy-pop {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--iron);
+  animation: trophy 650ms 250ms ease-out both;
+}
+
+/* The one small celebration */
+@keyframes trophy {
+  0% {
+    transform: scale(0.6) rotate(-12deg);
+  }
+  55% {
+    transform: scale(1.18) rotate(8deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+.pr-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 18px;
+}
+
+.pr {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.pr-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.pr-weight {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pr-weight small {
+  margin-left: 3px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--graphite);
+}
+
+/* ---------- Workout detail ---------- */
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  margin-left: -6px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--graphite);
+}
+
+.back:hover {
+  color: var(--iron);
+}
+
+.detail {
+  display: grid;
+  gap: 22px;
+}
+
+.detail-name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--iron);
+}
+
+.detail-sets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Each set is a little scoreboard: 155 × 4 */
+.score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 6px 12px 4px;
+  border-radius: 4px;
+  background: var(--iron);
+  color: var(--chalk);
+  font-family: var(--display);
+}
+
+.score-num {
+  font-weight: 800;
+  font-size: 1.8rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-x {
+  font-size: 1.1rem;
+  color: #aab1b7;
+}
+
+.score.is-pr {
+  background: var(--accent);
+  color: var(--iron);
+}
+
+.score.is-pr .score-x {
+  color: var(--iron);
+}
+
+.score-pr {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+  font-weight: 800;
+  font-size: 1rem;
+  align-self: center;
+}
+
+/* ---------- Dialog ---------- */
+
+.dialog {
+  width: min(92vw, 400px);
+  padding: 22px 20px 20px;
+  border: 2px solid var(--iron);
+  border-radius: var(--radius);
+  background: var(--chalk);
+  color: var(--iron);
+  box-shadow: 0 6px 0 var(--iron);
+}
+
+.dialog[open] {
+  animation: pop 160ms ease-out;
+}
+
+.dialog::backdrop {
+  background: rgba(29, 33, 37, 0.6);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.dialog-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 1.05;
+}
+
+.dialog-text {
+  margin-top: 8px;
+  color: var(--graphite);
+}
+
+.dialog-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ---------- Toast ---------- */
+
+.toast-region {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--tabbar-h) + 14px + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px 12px 12px;
+  border-radius: var(--radius);
+  background: var(--iron);
+  color: var(--chalk);
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(29, 33, 37, 0.25);
+  animation: toast-in 220ms ease-out;
+}
+
+.toast-check {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--chalk);
+  color: var(--iron);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* ---------- Bottom tab bar ---------- */
+
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--iron);
+  z-index: 10;
+}
+
+.tab {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  padding-bottom: 6px;
+  color: #a3aab1;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.tab:hover {
+  color: var(--chalk);
+}
+
+.tab:focus-visible {
+  outline-color: var(--chalk);
+  outline-offset: -4px;
+}
+
+/* Current page: bright text, lighter iron, and a chalk underline */
+.tab.active {
+  color: var(--chalk);
+  background: var(--iron-2);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: calc(50% - 14px);
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--chalk);
+}
+
+/* Draft-in-progress dot on the Log tab */
+.tab-dot {
+  position: absolute;
+  top: 12px;
+  left: calc(50% + 10px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------- Respect reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

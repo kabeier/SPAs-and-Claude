@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPA Detective</title>
+<link rel="stylesheet" href="radio.css">
+<style>
+  body { background: #f4f6f9; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 36px 28px 60px; }
+  h1 { font-size: 64px; }
+  h2 { font: 800 30px 'Bricolage Grotesque', sans-serif; margin: 34px 0 12px; }
+  .lab { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .lab a { display: block; text-decoration: none; color: inherit; border: 3px solid #1b2230; border-radius: 10px; padding: 20px 22px; background: #fff; }
+  .lab a:hover, .lab a:focus-visible { border-color: #e0482b; }
+  .lab b { font: 800 26px 'Bricolage Grotesque', sans-serif; display: block; }
+  .clues { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .clue { background: #fff; border-left: 6px solid #e0482b; padding: 14px 18px; border-radius: 4px; font-size: 17px; line-height: 1.45; }
+  .clue strong { display: block; font-size: 19px; margin-bottom: 4px; }
+  table.sites { width: 100%; background: #fff; border-radius: 8px; overflow: hidden; }
+  table.sites td, table.sites th { padding: 10px 14px; border-bottom: 1px solid #e3e8ef; text-align: left; font-size: 17px; vertical-align: top; }
+  table.sites th { background: #1b2230; color: #fff; font-weight: 700; }
+  .ans { visibility: hidden; }
+  body.showkey .ans { visibility: visible; }
+  .pill { font: 700 13px 'JetBrains Mono'; padding: 2px 8px; border-radius: 4px; color: #fff; white-space: nowrap; }
+  .spa { background: #13795b; } .trad { background: #c8372d; } .hyb { background: #2552c9; }
+  .hint { font: 500 14px 'JetBrains Mono'; color: #5b6577; }
+  @media (max-width: 800px) { .lab, .clues { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>SPA Detective</h1>
+  <p>I visit a site and click around. You decide in chat: <b>SPA</b> or <b>TRAD</b> (traditional, full page reload)? Then we gather evidence.</p>
+
+  <h2>Warm-up: the same radio site, built two ways</h2>
+  <div class="lab">
+    <a href="traditional/index.html"><b>KSPA, traditional version</b>3 separate HTML files. Every click asks the server for a new page.</a>
+    <a href="spa/index.html"><b>KSPA, single page app</b>1 HTML file. JavaScript swaps the middle of the page.</a>
+  </div>
+  <p class="hint">Script: hit Listen live → type in Request a song → click Home → come back. In which version does the music keep playing and your text survive?</p>
+
+  <h2>How to catch a SPA</h2>
+  <div class="clues">
+    <div class="clue"><strong>1 · The flash</strong>Traditional sites go white for a split second and the tab icon spins. SPAs swap content without a flash.</div>
+    <div class="clue"><strong>2 · Things survive</strong>Music keeps playing, the video shrinks to a mini-player, half-typed text is still there.</div>
+    <div class="clue"><strong>3 · DevTools proof</strong>F12 → Network → filter <b>Doc</b> → click a link. A new document row means a full page load. No new row means SPA.</div>
+  </div>
+
+  <h2>The lineup <span class="hint">(K reveals answers)</span></h2>
+  <table class="sites">
+    <tr><th>Site</th><th>What to do on screen</th><th>Verdict</th></tr>
+    <tr><td><a href="https://www.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a></td><td>Search a topic, click 3 links in the article</td><td class="ans"><span class="pill trad">TRAD</span> new document per article</td></tr>
+    <tr><td><a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a></td><td>Play a video, then click the logo / another video</td><td class="ans"><span class="pill spa">SPA</span> video keeps playing in the mini-player</td></tr>
+    <tr><td><a href="https://news.ycombinator.com" target="_blank" rel="noopener">Hacker News</a></td><td>Click "new", then "comments" on a post</td><td class="ans"><span class="pill trad">TRAD</span> classic server-rendered pages</td></tr>
+    <tr><td><a href="https://open.spotify.com" target="_blank" rel="noopener">Spotify (web)</a></td><td>Play a song, browse to an artist, then search</td><td class="ans"><span class="pill spa">SPA</span> music never stops</td></tr>
+    <tr><td><a href="https://codeplatoon.github.io/se-curriculum/phase-III/09-Building-Applications/1-single-page-apps/" target="_blank" rel="noopener">Our curriculum site</a></td><td>Click Part 1 → Part 2 → Assignments</td><td class="ans"><span class="pill trad">TRAD</span> static HTML pages (MkDocs). Surprise: the SPA lesson isn't on a SPA!</td></tr>
+    <tr><td><a href="https://maps.google.com" target="_blank" rel="noopener">Google Maps</a></td><td>Search a place, click Directions</td><td class="ans"><span class="pill spa">SPA</span> the map never reloads</td></tr>
+    <tr><td><a href="https://chicago.craigslist.org" target="_blank" rel="noopener">Craigslist</a></td><td>Click a category, then a listing</td><td class="ans"><span class="pill trad">TRAD</span> new document every click</td></tr>
+    <tr><td><a href="https://github.com/react/react" target="_blank" rel="noopener">GitHub</a></td><td>Click Issues, then Pull requests, then Code</td><td class="ans"><span class="pill spa">SPA</span> (mostly) Issues, Pull requests and Code tabs swap content with no new document. A few odd pages still full-load, so it's a spectrum.</td></tr>
+    <tr><td><a href="https://www.netflix.com" target="_blank" rel="noopener">Netflix</a> (if logged in)</td><td>Hover a title, open its details, browse a row</td><td class="ans"><span class="pill spa">SPA</span> and it's your homework clone</td></tr>
+  </table>
+  <p class="hint">Sites change over time. If a verdict looks different on the day, let the DevTools Doc filter settle it. That's the point.</p>
+</div>
+<script>
+  addEventListener('keydown', (e) => { if (e.key === 'k' || e.key === 'K') document.body.classList.toggle('showkey') })
+  sessionStorage.removeItem('mpaLoads') // reset the traditional demo's page-load counter each time we start here
+</script>
+</body>
+</html>

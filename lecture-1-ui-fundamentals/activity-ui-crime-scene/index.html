@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Crime Scene</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#f4f6f9; --grid:#dce3ee; --ink:#1b2230; --muted:#5b6577; --blue:#2552c9; --green:#13795b; --red:#c8372d; --tape:#ffd84a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; color: var(--ink);
+    background: var(--paper) linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 32px 32px,
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 32px 32px; }
+  header { padding: 28px 36px 8px; display: flex; flex-wrap: wrap; gap: 12px 40px; align-items: end; justify-content: space-between; }
+  h1 { font: 800 56px/1 'Bricolage Grotesque', sans-serif; margin: 0; letter-spacing: -0.02em; }
+  .tapeline { height: 22px; margin: 6px 0 0; background: repeating-linear-gradient(-45deg, var(--tape) 0 28px, var(--ink) 28px 56px); }
+  .brief { font-size: 19px; max-width: 46em; margin: 0; }
+  .brief b { background: var(--tape); padding: 0 4px; }
+  .keyhint { font: 500 14px 'JetBrains Mono', monospace; color: var(--muted); }
+  main { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 22px; padding: 26px 36px 60px; }
+  .ex { position: relative; background: #fff; border: 2px solid var(--ink); border-radius: 6px; padding: 46px 20px 20px; min-height: 250px; }
+  .ex .tag { position: absolute; top: -2px; left: 16px; background: var(--tape); border: 2px solid var(--ink); border-top: 0;
+    font: 700 22px 'JetBrains Mono', monospace; padding: 2px 14px 4px; border-radius: 0 0 6px 6px; }
+  .ex .title { position: absolute; top: 8px; right: 14px; font: 500 13px 'JetBrains Mono', monospace; color: var(--muted); }
+  .key { display: none; margin-top: 16px; border-top: 2px dashed var(--red); padding-top: 12px; font-size: 15px; line-height: 1.45; }
+  .key b { color: var(--red); }
+  .key i { display: block; color: var(--green); font-style: normal; margin-top: 6px; }
+  body.showkey .key { display: block; }
+  /* the mini-UIs inside exhibits (deliberately "normal" looking) */
+  .ui label { display: block; font-size: 14px; margin: 8px 0 4px; }
+  .ui input, .ui select { width: 100%; font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid #b9c2cf; border-radius: 6px; }
+  .ui button { font: inherit; font-size: 15px; padding: 8px 14px; border-radius: 6px; border: 1px solid #b9c2cf; background: #eef1f6; cursor: pointer; margin-top: 10px; }
+  .ui button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .ui .msg { font-size: 14px; margin-top: 8px; min-height: 20px; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .icons button { width: 44px; height: 44px; font-size: 20px; padding: 0; }
+  .list { border: 1px solid #dfe4ec; border-radius: 6px; min-height: 90px; margin-top: 8px; }
+  .tiny { width: 9px; height: 9px; padding: 0 !important; font-size: 7px !important; line-height: 9px; margin: 0 !important; }
+  .faint { color: #d4d9e0; }
+  .faintbtn { background: #f3f5f8 !important; color: #c9ced6 !important; border-color: #eef0f3 !important; }
+  #e15 { position: relative; }
+  .modal { position: absolute; inset: -6px -8px auto; z-index: 2; background: #fff; border: 1px solid #b9c2cf; box-shadow: 0 10px 30px rgb(0 0 0 / .25); border-radius: 8px; padding: 18px; display: none; }
+  .modal.on { display: block; }
+  .chatlog { border: 1px solid #dfe4ec; border-radius: 6px; height: 90px; overflow: auto; padding: 6px 8px; font-size: 14px; margin-bottom: 6px; }
+  .chatlog div { background: #e6edfb; border-radius: 10px; padding: 3px 10px; margin: 3px 0; width: fit-content; }
+  .switch { font-size: 13px; display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .settings { font-size: 12px; columns: 2; }
+  .settings label { display: flex; gap: 4px; margin: 2px 0; font-size: 12px; }
+  .settings input { width: auto; }
+  .spinner { display: inline-block; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>UI Crime Scene</h1>
+    <div class="tapeline" aria-hidden="true"></div>
+  </div>
+  <p class="brief">Every exhibit below commits a UI crime. Take your exhibit number, <b>try it out</b> (click, type, submit), then post in chat: <b>#number: the crime + how you'd fix it</b>.</p>
+  <span class="keyhint">K toggles the answer key</span>
+</header>
+
+<main>
+
+<!-- 1 vague error -->
+<section class="ex"><span class="tag">#1</span><span class="title">sign in</span>
+  <div class="ui" id="e1">
+    <label>Email</label><input value="sam@example.com">
+    <label>Password</label><input type="password" value="hunter2">
+    <button class="primary">Sign in</button>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> vague error ("Error 0x80004005"). User has no idea if it's the email, the password, or the server. <i>Fix: say what happened and what to do: "That password doesn't match. Try again or reset it." Planning question: what happens when login fails?</i></div>
+</section>
+
+<!-- 2 form wipes on error -->
+<section class="ex"><span class="tag">#2</span><span class="title">create account</span>
+  <div class="ui" id="e2">
+    <label>Full name</label><input placeholder="Jordan Lee">
+    <label>Email</label><input placeholder="you@example.com">
+    <label>Password</label><input type="password" placeholder="at least 8 characters">
+    <button class="primary">Create account</button>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> one field is wrong and the form erases everything, then says "Invalid input." <i>Fix: keep what they typed, highlight the bad field, explain the rule next to it. Planning question: what happens when form validation fails?</i></div>
+</section>
+
+<!-- 3 no feedback -->
+<section class="ex"><span class="tag">#3</span><span class="title">profile</span>
+  <div class="ui" id="e3">
+    <label>Display name</label><input value="Sam">
+    <label>Bio</label><input value="Learning to code!">
+    <button class="primary">Save changes</button>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> no feedback. It actually saves, but nothing on screen changes, so users click 5 times or assume it failed. <i>Fix: a "Changes saved" message, button loading state, or toast. Every action needs visible feedback.</i></div>
+</section>
+
+<!-- 4 delete without confirm -->
+<section class="ex"><span class="tag">#4</span><span class="title">photos</span>
+  <div class="ui" id="e4">
+    <div class="list" style="padding:10px;font-size:15px" id="e4list">📁 Vacation 2025 (412 photos)<br>📁 Grandma's 90th (88 photos)</div>
+    <div class="row"><button class="primary">Save</button><button class="primary">Delete all</button><button class="primary">Share</button></div>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> destructive action styled like every other button, right next to Save, with no confirmation and no undo. <i>Fix: make it look dangerous (red, separated), confirm with specifics ("Delete 500 photos? This can't be undone"), or offer Undo. Planning question: which actions can't be undone?</i></div>
+</section>
+
+<!-- 5 low contrast -->
+<section class="ex"><span class="tag">#5</span><span class="title">checkout</span>
+  <div class="ui">
+    <p style="margin:0 0 6px;font-size:15px">Order total: <b>$84.20</b></p>
+    <p class="faint" style="font-size:13px;margin:0">Shipping is non-refundable. Orders ship in 6–8 weeks. Subscription renews monthly at $49.99 unless cancelled.</p>
+    <button class="faintbtn" style="width:100%">Place order</button>
+  </div>
+  <div class="key"><b>Crime:</b> low contrast. Important info (the auto-renew!) and the main button are almost invisible. <i>Fix: readable contrast (WCAG AA), important terms in normal text, a clearly primary button.</i></div>
+</section>
+
+<!-- 6 mystery icons -->
+<section class="ex"><span class="tag">#6</span><span class="title">editor toolbar</span>
+  <div class="ui">
+    <p style="font-size:14px;margin:0 0 8px">Which one publishes your post?</p>
+    <div class="row icons" id="e6">
+      <button>✎</button><button>⚙</button><button>◆</button><button>✂</button><button>➤</button><button>★</button>
+    </div>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> "mystery meat" navigation. Icons with no labels or tooltips, so users have to guess (and one of them deletes). <i>Fix: text labels, or at least tooltips/aria-labels; familiar icons only. Planning question: what navigation and actions exist on each page?</i></div>
+</section>
+
+<!-- 7 empty state -->
+<section class="ex"><span class="tag">#7</span><span class="title">playlists</span>
+  <div class="ui">
+    <h3 style="margin:0;font:700 18px 'Bricolage Grotesque'">Your playlists</h3>
+    <div class="list"></div>
+  </div>
+  <div class="key"><b>Crime:</b> a blank empty state. New users see nothing and don't know what to do (is it broken? loading?). <i>Fix: "No playlists yet" + a Create playlist button. An empty screen is an invitation to act. Planning question: what happens on a user's first visit?</i></div>
+</section>
+
+<!-- 8 Cancel / OK -->
+<section class="ex"><span class="tag">#8</span><span class="title">subscription</span>
+  <div class="ui" id="e8">
+    <p style="font-size:15px;margin:0 0 6px"><b>Cancel your subscription?</b></p>
+    <p style="font-size:14px;margin:0">You'll lose access at the end of the billing period.</p>
+    <div class="row"><button>Cancel</button><button class="primary">OK</button></div>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> ambiguous buttons. Does "Cancel" cancel the subscription or cancel the dialog? <i>Fix: name buttons by what they do: "Keep subscription" / "Cancel subscription".</i></div>
+</section>
+
+<!-- 9 tiny target -->
+<section class="ex"><span class="tag">#9</span><span class="title">promo banner</span>
+  <div class="ui" id="e9">
+    <div style="position:relative;background:#fff4c2;border-radius:6px;padding:14px 26px 14px 14px;font-size:15px">
+      🎉 Upgrade to Pro and get 3 months free! Tap here to learn more.
+      <button class="tiny" style="position:absolute;top:6px;right:6px" aria-label="close">x</button>
+    </div>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> tiny click target. The close button is about 9px, so on a phone you hit the ad instead. <i>Fix: touch targets at least 44×44px. (Bonus: when it's done on purpose, that's a "dark pattern.")</i></div>
+</section>
+
+<!-- 10 picky phone format -->
+<section class="ex"><span class="tag">#10</span><span class="title">contact info</span>
+  <div class="ui" id="e10">
+    <label>Phone number</label><input value="(555) 123-4567">
+    <button class="primary">Continue</button>
+    <div class="msg"></div>
+  </div>
+  <div class="key"><b>Crime:</b> rejects a perfectly normal phone number and doesn't say what format it wants. <i>Fix: accept common formats (strip the punctuation in code), show an example placeholder, explain the rule. Planning question: what if the user enters invalid data?</i></div>
+</section>
+
+<!-- 11 no loading state -->
+<section class="ex"><span class="tag">#11</span><span class="title">search</span>
+  <div class="ui" id="e11">
+    <div class="row"><input value="running shoes"><button class="primary" style="margin:0">Search</button></div>
+    <div class="list" style="padding:8px;font-size:14px"></div>
+  </div>
+  <div class="key"><b>Crime:</b> no loading state. Nothing happens for 3 seconds, so users click again and again (and send 5 searches). <i>Fix: a spinner or skeleton, disable the button while loading, "Searching…".</i></div>
+</section>
+
+<!-- 12 wrong control -->
+<section class="ex"><span class="tag">#12</span><span class="title">birthday</span>
+  <div class="ui" id="e12">
+    <label>Year you were born: <b id="e12v">1900</b></label>
+    <input type="range" min="1900" max="2026" value="1900" style="padding:0">
+    <p style="font-size:13px;color:#5b6577;margin:6px 0 0">Try to land on exactly 1998.</p>
+  </div>
+  <div class="key"><b>Crime:</b> wrong control. A slider is great for "roughly how much" but terrible for an exact value out of 127 choices. <i>Fix: a number input or date picker. Choose controls that fit the data you're collecting.</i></div>
+</section>
+
+<!-- 13 disabled without reason -->
+<section class="ex"><span class="tag">#13</span><span class="title">shipping</span>
+  <div class="ui">
+    <label>Street</label><input value="123 Main St">
+    <label>City</label><input value="Chicago">
+    <div class="row"><input value="IL" style="width:70px"><input placeholder="ZIP" style="width:110px"></div>
+    <button class="primary" disabled style="opacity:.4;cursor:not-allowed">Next</button>
+  </div>
+  <div class="key"><b>Crime:</b> disabled button with no explanation. Users don't know which field is missing (ZIP). <i>Fix: let them click Next and point at the missing field ("Enter a ZIP code"), or show what's required up front.</i></div>
+</section>
+
+<!-- 14 offline message lost -->
+<section class="ex"><span class="tag">#14</span><span class="title">chat</span>
+  <div class="ui" id="e14">
+    <label class="switch"><input type="checkbox" checked style="width:auto"> Wi-Fi connected</label>
+    <div class="chatlog"><div>hey are we still on for 6?</div></div>
+    <div class="row"><input placeholder="Type a message"><button class="primary" style="margin:0">Send</button></div>
+    <p style="font-size:13px;color:#5b6577;margin:6px 0 0">Turn Wi-Fi off, then send a message.</p>
+  </div>
+  <div class="key"><b>Crime:</b> offline failure is silent. The message just vanishes; the user thinks it was sent. <i>Fix: keep it in the log marked "Not sent · Tap to retry." Planning question: what happens if the internet disconnects?</i></div>
+</section>
+
+<!-- 15 confirmshaming pop-up -->
+<section class="ex"><span class="tag">#15</span><span class="title">recipe blog</span>
+  <div class="ui" id="e15">
+    <h3 style="margin:0 0 6px;font:700 18px 'Bricolage Grotesque'">Grandma's Banana Bread</h3>
+    <p style="font-size:14px;margin:0">Preheat the oven to 350°F. Mash three ripe bananas in a large bowl, then stir in the melted butter…</p>
+    <button>Read recipe</button>
+    <div class="modal">
+      <p style="margin:0 0 8px;font-weight:700">Wait! Join 2 million home cooks 🍌</p>
+      <input placeholder="Email address"><button class="primary" style="width:100%">Subscribe</button>
+      <p style="font-size:11px;text-align:center;margin:8px 0 0;cursor:pointer;text-decoration:underline" class="no">No thanks, I hate delicious food</p>
+    </div>
+  </div>
+  <div class="key"><b>Crime:</b> interrupts the task the moment you start it, and guilt-trips you ("confirmshaming"). <i>Fix: don't block the main task; offer the newsletter after the recipe, with a neutral "No thanks." Planning question: what are the user's goals? (Reading the recipe, not your newsletter.)</i></div>
+</section>
+
+<!-- 16 settings wall -->
+<section class="ex"><span class="tag">#16</span><span class="title">settings</span>
+  <div class="ui">
+    <p style="font-size:13px;margin:0 0 6px">Turn off email notifications:</p>
+    <div class="settings">
+      <label><input type="checkbox" checked>Sync</label><label><input type="checkbox" checked>Beta</label>
+      <label><input type="checkbox">Legacy mode</label><label><input type="checkbox" checked>Telemetry v2</label>
+      <label><input type="checkbox" checked>Auto-tag</label><label><input type="checkbox">Compact</label>
+      <label><input type="checkbox" checked>Digest (E)</label><label><input type="checkbox" checked>Smart send</label>
+      <label><input type="checkbox">Mirror</label><label><input type="checkbox" checked>Notif. pipeline</label>
+      <label><input type="checkbox" checked>Cloud cache</label><label><input type="checkbox">Hotkeys</label>
+    </div>
+  </div>
+  <div class="key"><b>Crime:</b> no hierarchy and developer jargon. 12 equal-weight options, internal names, and nothing called "email notifications." <i>Fix: group by what users care about (Notifications · Privacy · Display), use plain language, put the common settings first. Name things the way users think about them.</i></div>
+</section>
+
+</main>
+
+<script>
+  const $ = (s, r = document) => r.querySelector(s)
+  addEventListener('keydown', (e) => { if ((e.key === 'k' || e.key === 'K') && !e.target.closest('input')) document.body.classList.toggle('showkey') })
+
+  // #1 vague error
+  $('#e1 button').onclick = () => { $('#e1 .msg').innerHTML = '<span style="color:#c8372d">Error 0x80004005: request failed.</span>' }
+  // #2 wipes the form
+  $('#e2 button').onclick = () => { document.querySelectorAll('#e2 input').forEach((i) => (i.value = '')); $('#e2 .msg').innerHTML = '<span style="color:#c8372d">Invalid input.</span>' }
+  // #3 silently saves (nothing visible happens)
+  $('#e3 button').onclick = () => {}
+  // #4 deletes everything instantly
+  const b4 = document.querySelectorAll('#e4 button')
+  b4[1].onclick = () => { $('#e4list').innerHTML = ''; $('#e4 .msg').textContent = '' }
+  // #6 one icon deletes
+  document.querySelectorAll('#e6 button').forEach((b, k) => (b.onclick = () => { $('#e6 .msg').textContent = k === 3 ? '🗑 Draft deleted.' : k === 4 ? '✅ Published!' : 'Nothing obvious happened…' }))
+  // #8 either way it cancels
+  document.querySelectorAll('#e8 button').forEach((b) => (b.onclick = () => { $('#e8 .msg').textContent = 'Subscription cancelled.' }))
+  // #9 tiny close; the banner itself is the ad
+  $('#e9 div').onclick = (e) => { if (!e.target.classList.contains('tiny')) $('#e9 .msg').textContent = '→ Redirecting you to the Pro upgrade page…' }
+  $('#e9 .tiny').onclick = (e) => { e.stopPropagation(); e.target.parentElement.style.display = 'none'; $('#e9 .msg').textContent = 'Closed. (Did you manage it on the first try?)' }
+  // #10 rejects punctuation, no hint
+  $('#e10 button').onclick = () => { const v = $('#e10 input').value; $('#e10 .msg').innerHTML = /^\d{10}$/.test(v) ? 'Saved.' : '<span style="color:#c8372d">Invalid phone number.</span>' }
+  // #11 3s delay, no spinner
+  $('#e11 button').onclick = () => { const l = $('#e11 .list'); l.textContent = ''; setTimeout(() => (l.innerHTML = '👟 Trail Runner 2 · $89<br>👟 Road Flyer · $120<br>👟 Daily Trainer · $75'), 3000) }
+  // #12 slider for a year
+  $('#e12 input').oninput = (e) => ($('#e12v').textContent = e.target.value)
+  // #14 message vanishes offline
+  $('#e14 button').onclick = () => {
+    const inp = $('#e14 .row input'), online = $('#e14 .switch input').checked
+    if (!inp.value.trim()) return
+    if (online) { const d = document.createElement('div'); d.textContent = inp.value; $('#e14 .chatlog').append(d) }
+    inp.value = ''
+  }
+  // #15 pop-up on first click
+  $('#e15 > button, #e15 button').onclick = () => $('#e15 .modal').classList.add('on')
+  $('#e15 .no').onclick = () => $('#e15 .modal').classList.remove('on')
+</script>
+</body>
+</html>
