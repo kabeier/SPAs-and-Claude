@@ -66,13 +66,13 @@ Two terminals, both starting in `~/demos`. Terminal 1 runs the dev server. Termi
 | 8 (~15) | 1 | `npm create vite@latest`: liftlog, React, **JavaScript** (not "React Router v7"), Oxlint, Install + start: **No**. Then `cd liftlog`, `npm install`, `npm install react-router-dom`, `npm run dev`. Open localhost:5173. | "npm reads package.json, the shopping list. Vite runs the dev server." |
 | 10 (~19) | 2 | `cd liftlog`, the three `claude mcp add` lines, then `claude mcp list` | "Docs, eyes and hands, a debugger. --scope user means every project gets them." |
 | 11 (~22) | 2 | The skills one-liner from the class site, then `ls .claude/skills` | "A skill is a folder, not a file." |
-| 12 (~23) | 2 | `cp -r ~/demo-kit/app_outline .`, open `pages/home/user_story.md` and `home.png`. Then `claude --permission-mode acceptEdits`, `/mcp`, `/skills` | "This is the Lecture 1 homework, turned into a folder." |
+| 12 (~23) | 2 | `cp -r ~/demo-kit/app_outline .`, open `pages/home/user_story.md` and `home.png`. Then `claude`, `/mcp`, `/skills` | "This is the Lecture 1 homework, turned into a folder." |
 | 13 (~26) | 2 (Claude) | Paste the **short 2-phase prompt** from `prompt.md`. Approve the phases out loud. | "I'm the architect. I approve the plan." |
 | 15 (~29) | — | Who's Responsible quiz while Claude builds. Stop when phase 1 is done. | — |
 | 16 (~34) | browser | localhost:5173 next to `home.png`. Take class feedback, type one in, approve. | "Does it match? What would you tell Claude?" |
 | 17 (~37) | 3rd terminal | `git init`, `git add -A`, `git commit -m "Phase 1: app shell + Home"` | "Every approved phase gets a commit, which is a save point." |
 | 18 (~39) | 3rd terminal | Optional: `mkdir -p .claude/agents && cp ~/demo-kit/.claude/agents/front-end-agent.md .claude/agents/`, then `/agents` in Claude | "Set it up once, reuse it everywhere." |
 
-`--permission-mode acceptEdits` auto-accepts file edits so the build doesn't stall. Claude still asks before using MCP tools like Playwright; pick "don't ask again".
+Claude asks permission before it edits files or runs commands. The first time it asks to edit a file, read the request out loud, then pick **"Yes, allow all edits during this session"** so the build doesn't stop on every file. It will still ask before running commands (like `npm install`) and before using Playwright: approve those live. That's the human-in-the-loop idea, on screen.
 
 If phase 1 isn't done by ~min 34, don't wait: switch to the backup app for the comparison and let Claude keep going in the background.

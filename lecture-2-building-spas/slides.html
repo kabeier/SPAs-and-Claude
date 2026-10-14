@@ -221,7 +221,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   <aside class="notes">
     <p>"Your Lecture 1 homework becomes this folder." One folder per page means Claude works on one page at a time: <b>limit context, isolate scope</b>.</p>
     <p><b>Do it live in terminal 2:</b> <code>cp -r ~/demo-kit/app_outline .</code> ("this is the Lecture 1 homework, dropped into the project"). In your editor, open <code>pages/home/user_story.md</code> next to <code>home.png</code>.</p>
-    <p>Then start Claude: <code>claude --permission-mode acceptEdits</code>. Type <code>/mcp</code> (three servers) and <code>/skills</code> (four skills) so they see Claude picked up everything you just installed. Taste shows as design-taste-frontend.</p>
+    <p>Then start Claude: <code>claude</code>. Type <code>/mcp</code> (three servers) and <code>/skills</code> (four skills) so they see Claude picked up everything you just installed. Taste shows as design-taste-frontend.</p>
   </aside>
 </section>
 
@@ -239,7 +239,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </div>
   <p class="bottomline" style="margin-top:28px">Full text: demo-kit/prompt.md. Paste it now and let Claude start.</p>
   <aside class="notes">
-    <p><b>Kick off the live build here.</b> Paste the <b>short 2-phase version</b> from demo-kit/prompt.md (bottom of the file). Claude will summarize the journey and propose phases. Read the phases out loud and <b>approve them</b> ("I'm the architect"). Then let phase 1 run while we do the quiz.</p>
+    <p><b>Kick off the live build here.</b> Paste the <b>short 2-phase version</b> from demo-kit/prompt.md (bottom of the file). Claude will summarize the journey and propose phases. Read the phases out loud and <b>approve them</b> ("I'm the architect"). When Claude first asks to edit a file, read the request out loud, then pick <b>"Yes, allow all edits during this session"</b> so it doesn't stop on every file. It will still ask before running commands and using Playwright; approve those as they come. Then let phase 1 run while we do the quiz.</p>
     <p>"This prompt isn't the only way. Use everything you learned about prompt engineering."</p>
   </aside>
 </section>
