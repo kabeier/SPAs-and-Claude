@@ -1,4 +1,4 @@
-# Workout Detail page — `/workout/:id`  (no wireframe — follow the style of the other pages)
+# Workout Detail page — `/workout/:id`
 
 **As a** lifter, **I want to** see every set from a past workout and fix mistakes, **so that** my history is accurate.
 

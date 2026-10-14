@@ -53,14 +53,14 @@ Every diagram is a real, editable tldraw file. To open one, **drag the `.tldr` f
 | `L1-02-vague-vs-blueprint` | L1 | "make a workout app" vs a context package |
 | `L1-03-planning-pipeline` | L1 | Idea → problem → users → features → journey → screens → errors → context package |
 | `L1-04-eight-questions` | L1 | The 8-question template with Workout Tracker answers (homework) |
-| `L1-05-workout-journey` | L1 | Full worked example: journey, error branches, 3 lo-fi wireframes |
+| `L1-05-workout-journey` | L1 | Full worked example: journey, error branches, 4 lo-fi wireframes (also the demo's `app.png`) |
 | `ACT-live-blueprint-board` | L1 activity 2 | **Blank board you fill in live with the class** |
 | `L2-01-tech-stack` | L2 | Node / npm / Vite / React / Router as engine / parts store / workshop / LEGO / receptionist |
 | `L2-02-router-shell` | L2 | How React Router swaps one outlet while the shell stays |
 | `L2-03-toolbelt` | L2 | Claude Code + context + skills + MCPs + sub-agent |
 | `L2-04-build-loop` | L2 | Phase loop: build → Playwright screenshot → compare → you approve → commit |
 | `L2-05-app-outline` | L2 | The `app_outline/` folder and why each file exists |
-| `WF-home`, `WF-log`, `WF-history` | L2 demo | Per-page wireframes used in `demo-kit/app_outline/` |
+| `WF-home`, `WF-log`, `WF-history`, `WF-detail` | L2 demo | Per-page wireframes used in `demo-kit/app_outline/` |
 
 Your existing SPA vs traditional tldraw drops in at Lecture 2, slide 3 (the notes remind you).
 
