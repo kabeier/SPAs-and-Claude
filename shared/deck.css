@@ -134,6 +134,8 @@ body.presenter { overflow: auto; background: #10151f; color: #e9edf5; font-famil
 .pv .notesbox { font-size: 23px; line-height: 1.5; background: #1a2130; border-radius: 10px; padding: 20px 26px; margin-top: 14px; }
 .pv .notesbox p, .pv .notesbox li { font-size: 23px; max-width: none; }
 .pv .notesbox b { color: #ffe76a; }
+.pv .notesbox code { background: #0b0f17; color: #9fe0ff; border-color: #34405a; }
+.pv .next code { background: #0b0f17; color: #9fe0ff; border-color: #34405a; }
 .pv .side { display: flex; flex-direction: column; gap: 16px; }
 .pv .clock { font: 700 56px var(--mono); }
 .pv .clock.late { color: #ff8a80; } .pv .clock.ok { color: #7ee2b8; }
