@@ -15,6 +15,7 @@
   <h1>UI Fundamentals: draw the blueprint before Claude builds</h1>
   <p class="sub">What a UI is, why it matters, and how to plan one so an AI can build it.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Today we plan an app before Claude builds it: what a UI is, and the questions to answer first.</p>
     <p><b>Before class:</b> open the UI Crime Scene page from the class site (kabeier.github.io/SPAs-and-Claude) in a second tab. Press <b>T</b> to start the lecture clock when you begin.</p>
     <p>Framing: "For the next two lectures we're building a real front-end app. Today we don't write code. We do the part AI can't do for us: decide what to build."</p>
   </aside>
@@ -30,6 +31,7 @@
   </ul>
   <p class="bottomline">Next lecture, Claude Code turns today's blueprint into a working app.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> What students will be able to do by the end of today.</p>
     <p>Agenda out loud: a few minutes on what a UI is, a <b>crime scene</b> activity, then how to plan an app, ending with a finished example.</p>
     <p>Reassure week-2 students: "You don't need to know React yet. Today is thinking and drawing."</p>
   </aside>
@@ -39,6 +41,7 @@
   <h2>Claude Code can build almost anything. It can't read your mind.</h2>
   <p>Your superpower isn't syntax. It's communicating intent.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> The big idea: Claude can build almost anything, but it can't read your mind.</p>
     <p>"If you type 'make a workout app,' you'll get <i>a</i> workout app. Probably purple gradients, features you didn't ask for, and missing the one you needed."</p>
   </aside>
 </section>
@@ -47,6 +50,7 @@
   <img src="../diagrams/L1-02-vague-vs-blueprint.png" alt="Vague prompt leads to a generic app; a blueprint leads to the app you designed">
   <div class="src">diagrams/L1-02-vague-vs-blueprint.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A picture of a vague request next to a real blueprint.</p>
     <p>Left: vague prompt, so Claude guesses and you spend hours re-prompting. Right: answers + journey + wireframes, which is a <b>context package</b>. "Today we build the right-hand side."</p>
   </aside>
 </section>
@@ -70,6 +74,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> What a user interface is: everything a user can see, touch or get feedback from.</p>
     <p>Quick test: "Is a loading spinner part of the UI?" Yes, it's feedback. "Is the database?" No.</p>
     <p>Students' earlier stateful-components activity connects here: every slider, toggle, and input you found is a UI element.</p>
   </aside>
@@ -79,6 +84,7 @@
   <img src="../diagrams/L1-01-restaurant.png" alt="Restaurant analogy: dining room is the frontend, kitchen the backend, pantry the database">
   <div class="src">diagrams/L1-01-restaurant.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A restaurant picture for how the UI relates to the rest of the app.</p>
     <p>Three layers: <b>Frontend</b> (what users see), <b>Backend</b> (processes requests, business logic), <b>Database</b> (stores data).</p>
     <p>"World-class chefs, great recipes. But if the menu is confusing and nobody takes your order, you leave. You never taste the food." The UI is the only part users experience directly.</p>
     <p>Car dashboard: you steer and brake without understanding the transmission.</p>
@@ -97,6 +103,7 @@
   </ol>
   <p class="muted small" style="margin-top:24px">Page: activity-ui-crime-scene/index.html</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Activity: each student takes a numbered exhibit, a tiny UI that commits a crime, and reports what's wrong.</p>
     <p><b>Setup (1 min):</b> share the crime scene tab. Assign exhibits by roster order. 16 exhibits, so pair up or double up if the class is bigger. Post the Crime Scene link from the class site in chat so students can click their own exhibit.</p>
     <p><b>Work (3 min)</b> on the countdown. While they work, click through the exhibits on your screen so people can see them in action.</p>
     <p><b>Debrief (2 min):</b> ask 3–4 exhibits to present. Press <b>K</b> on the crime scene page to show the answer key and the planning question for each exhibit.</p>
@@ -116,6 +123,7 @@
   </div>
   <p class="bottomline" style="margin-top:32px">If you don't decide, Claude decides for you, or nobody does.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Every crime in the activity was a planning question nobody answered.</p>
     <p>This connects the activity to the rest of the lecture: everything we plan next exists to prevent these crimes.</p>
   </aside>
 </section>
@@ -125,6 +133,7 @@
   <img src="../diagrams/L1-03-planning-pipeline.png" alt="Planning pipeline from idea to context package">
   <div class="src">diagrams/L1-03-planning-pipeline.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> The planning steps we're about to walk through.</p>
     <p>Roadmap for the next 15 minutes. Steps 1–5 are <b>writing</b>, steps 6–7 are <b>drawing</b>, and the result is a context package Claude can build from.</p>
     <p>Our running example is the curriculum's <b>Workout Tracker</b>.</p>
   </aside>
@@ -150,6 +159,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step one: say what the app is in one or two sentences.</p>
     <p>Push for <b>specific</b> problems. "People need to work out" is not a problem. "Mid-set, with sweaty hands, I can't type into a spreadsheet" is.</p>
   </aside>
 </section>
@@ -171,6 +181,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step two: who the users are, and what each type needs.</p>
     <p>Quick chat question: "Netflix (your homework): how many user types?" Viewers, plus profiles (kids vs adult). Plant that seed for homework.</p>
   </aside>
 </section>
@@ -193,6 +204,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step three: clarify features around what users want to finish.</p>
     <p>This is where beginners skip ahead to colors and buttons. The top 3 decides what goes on the home screen.</p>
   </aside>
 </section>
@@ -209,6 +221,7 @@
   <p><b>And:</b> what should users <i>never</i> see? (other people's data, passwords, admin tools)</p>
   <p class="bottomline">Every major action usually becomes a feature, and usually a button.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step four: think about information and actions as CRUD.</p>
     <p>CRUD shows up again in the backend unit, so keep it light: "Create, Read, Update, Delete. Almost every app is these four verbs on some kind of data."</p>
     <p>Optional 30-sec check: "Instagram: liking a post is which one?" (Create a like / Update). "Scrolling your feed?" (Read).</p>
   </aside>
@@ -237,6 +250,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step five: write the user journey, the step-by-step story of using the app.</p>
     <p>Point out step 4: the mistake is <b>part of the journey</b>. Callback to the crime scene.</p>
   </aside>
 </section>
@@ -262,6 +276,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step six: draw every screen in TLDraw.</p>
     <p>Do a 20-second live demo in tldraw.com if you have time: draw a phone frame, two boxes, an arrow.</p>
   </aside>
 </section>
@@ -284,6 +299,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Planning step seven, the one beginners skip: what happens when something goes wrong.</p>
     <p>"Notice that half the crime scene exhibits were this slide."</p>
   </aside>
 </section>
@@ -292,6 +308,7 @@
   <img src="../diagrams/L1-05-workout-journey.png" alt="Workout Tracker user journey with error branches and three lo-fi wireframes">
   <div class="src">diagrams/L1-05-workout-journey.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A worked example: the full journey for a workout app.</p>
     <p>"This is what done looks like." Walk the top row (journey), the red diamonds (mistakes), then the four screens. Notice the screens match the journey steps, and the empty states are drawn in.</p>
     <p>Optionally drag the .tldr into tldraw.com and zoom around live, which also models how they'll use TLDraw.</p>
   </aside>
@@ -304,6 +321,7 @@
   <img src="../diagrams/L1-04-eight-questions.png" alt="The 8-question practical template with Workout Tracker example answers">
   <div class="src">diagrams/L1-04-eight-questions.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> All eight planning questions on one page.</p>
     <p>The 8-question template from the curriculum. "Answer these 8 and you can sketch about 80% of your UI before writing a line of code." This is the homework.</p>
   </aside>
 </section>
@@ -311,6 +329,9 @@
 <section class="slide statement" data-seg="Wrap up" data-at="35">
   <h2>AI accelerates execution. It doesn't replace architecture.</h2>
   <p>Your TLDraw sketches and user journey are the context package Claude Code needs. Designing the intent is the real engineering work.</p>
+  <aside class="notes">
+    <p class="plan"><b>The plan:</b> The takeaway: AI speeds up the building. It doesn't replace the planning.</p>
+  </aside>
 </section>
 
 <section class="slide" data-seg="Wrap up" data-at="36">
@@ -334,6 +355,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Walk through Homework Part I.</p>
     <p>Say the order out loud: your own app first, then the certification, then the Netflix clone if there's time.</p>
     <p>Emphasize exporting PNGs per page. Lecture 2 assumes they have wireframe images and user stories ready.</p>
   </aside>
@@ -345,6 +367,9 @@
     <div class="q">In one sentence: what app will you build, and what problem does it solve?</div>
     <div class="how">That's question 1 of your homework, done.</div>
   </div>
+  <aside class="notes">
+    <p class="plan"><b>The plan:</b> Exit ticket: one sentence in the chat on what app they'll build.</p>
+  </aside>
 </section>
 
 </div>

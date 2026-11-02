@@ -15,6 +15,7 @@
   <h1>Building your SPA: from blueprint to running app</h1>
   <p class="sub">Last time you designed the intent. Today Claude Code builds it, and you stay the architect.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Last time we designed the app. Today Claude Code builds it, and we stay the architect.</p>
     <p><b>Before class:</b> nothing is installed in the demo project yet. You build it live: Vite at slide 8, MCPs at slide 10, skills at slide 11, app_outline at slide 12 (see demo-kit/RUNBOOK.md). Have two terminals open in <code>~/demos</code>, and tabs ready: SPA Detective page, Who's Responsible page, your SPA vs traditional drawing. Press <b>T</b> to start the clock.</p>
   </aside>
 </section>
@@ -29,6 +30,7 @@
     <li>Save it with git, and package it as a reusable sub-agent</li>
   </ul>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> The agenda: what a SPA is, our stack, equipping Claude, building, and saving our work.</p>
     <p>"Goal isn't to become a React expert today. It's to know what each tool is responsible for, so you can give Claude the context, tools, constraints, and feedback it needs."</p>
   </aside>
 </section>
@@ -47,6 +49,7 @@
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> What a single page application is, compared to a traditional website.</p>
     <p><b>Switch to your own TLDraw "SPA vs traditional" drawing here</b> and walk through it (2 min).</p>
   </aside>
 </section>
@@ -62,6 +65,7 @@
   </ol>
   <p class="muted small" style="margin-top:24px">Page: activity-spa-detective/index.html</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Activity: we visit real sites, and everyone says SPA or traditional.</p>
     <p><b>Warm-up (2 min):</b> KSPA 101.5 is a made-up radio station site, built twice. Its two links are at the top of the SPA Detective page, under "Warm-up". Open <b>KSPA, traditional version</b> first. (No audio plays; the "music" is a counting timer.) Hit Listen live, type in Request a song, click Home. The timer resets, text is gone, and the "documents loaded" counter goes up. Then the SPA version: the music keeps going, the text survives, and the document timestamp never changes. "Same site. The only difference is how navigation works."</p>
     <p><b>Lineup (3 min), just three sites:</b> YouTube (SPA: the video keeps playing), Wikipedia (TRAD: open <b>DevTools → Network → Doc</b>, click a link, a new row appears = full page load), then our curriculum site (TRAD, the fun reveal). For each: do the action, count down, everyone answers in chat. The rest of the table is extra if you're ahead.</p>
     <p>Wrap with the three clues at the top of the page: the flash, things survive, DevTools proof.</p>
@@ -76,6 +80,7 @@
   <img src="../diagrams/L2-01-tech-stack.png" alt="Tech stack: Node engine, npm parts store, Vite workshop, React lego bricks, React Router receptionist">
   <div class="src">diagrams/L2-01-tech-stack.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A picture of our tech stack and who does what.</p>
     <p>Open with: "You won't write this code. You do need to know who's responsible for what. That's how you steer Claude, and how you know where to look when something breaks."</p>
     <p>Bottom up:</p>
     <ul>
@@ -109,6 +114,7 @@ function WorkoutCard({ name, date }) {
 }</pre>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> How React builds the screen from reusable components.</p>
     <p>Don't teach syntax. The point is "components are LEGO bricks." Tie back to Lecture 1: every box in your wireframe will probably become a component.</p>
   </aside>
 </section>
@@ -117,6 +123,7 @@ function WorkoutCard({ name, date }) {
   <img src="../diagrams/L2-02-router-shell.png" alt="React Router reads the URL and swaps one component into the outlet while the navbar and footer stay">
   <div class="src">diagrams/L2-02-router-shell.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A picture of how the router swaps pages inside one shell.</p>
     <p>React has no routing built in, so React Router fills that gap: routes, links, navigation, URL params like <code>/workout/42</code>.</p>
     <p>The navbar and footer never reload. Only the outlet swaps. That's exactly what they saw in the KSPA radio SPA, which is about 25 lines of a hand-rolled router.</p>
   </aside>
@@ -144,6 +151,7 @@ npm run dev
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> We start the real project live with Vite.</p>
     <p><b>Do it live in terminal 1</b>, from <code>~/demos</code>. Narrate each answer. For Variant pick plain <b>JavaScript</b>, not "React Router v7" (that's a different framework). Answer <b>No</b> to "Install and start now" so you can show each step separately:</p>
     <ul>
       <li><code>npm install</code>: "npm reads package.json, the shopping list, and downloads everything into node_modules."</li>
@@ -159,6 +167,7 @@ npm run dev
   <img src="../diagrams/L2-03-toolbelt.png" alt="Claude Code receives context from app_outline, rules from skills, abilities from MCP servers, and can be packaged as a sub-agent">
   <div class="src">diagrams/L2-03-toolbelt.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A picture of the tools we're about to give Claude.</p>
     <p>"We can't read the code yet, so we have to give Claude the best tools possible." Context is <b>what</b> to build, skills are <b>how it should look</b>, MCPs are <b>abilities</b> (docs, eyes, debugger). You're the general contractor.</p>
   </aside>
 </section>
@@ -175,6 +184,7 @@ claude mcp add --scope user context7        -- npx -y @upstash/context7-mcp
 claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
 <span class="c"># check:  claude mcp list</span></pre>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> We add MCP servers, so Claude can pull current docs and drive a real browser.</p>
     <p><b>Do it live in terminal 2</b>, inside <code>~/demos/liftlog</code>. Paste the three commands one at a time and say what each gives Claude: docs, eyes and hands, a debugger.</p>
     <p>Then run <code>claude mcp list</code>. It checks each server and should show all three as <b>Connected</b>. "--scope user means every project on this laptop gets them, not just this one."</p>
     <p>They already have Playwright from a previous lecture. If <code>claude mcp add</code> says it already exists, that's fine: "I already had this one."</p>
@@ -209,6 +219,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
 └── ...</pre>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> We add skills: rulebooks that push Claude past generic AI design.</p>
     <p>Teach it as "a skill is a <b>folder</b>, not a file": several of these ship data/, references/ or assets/ folders alongside SKILL.md. <code>demo-kit/setup-skills.sh</code> (tested) clones all four complete folders in one go.</p>
     <p><b>Do it live in terminal 2:</b> paste the one-line install from the class site. It prints a ✓ per skill with its file count. Then <code>ls .claude/skills</code> so they see the four folders.</p>
   </aside>
@@ -219,6 +230,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   <img src="../diagrams/L2-05-app-outline.png" alt="app_outline folder structure mapped to its purpose">
   <div class="src">diagrams/L2-05-app-outline.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A picture of the app_outline folder, which holds our plan for Claude.</p>
     <p>"Your Lecture 1 homework becomes this folder." One folder per page means Claude works on one page at a time: <b>limit context, isolate scope</b>.</p>
     <p><b>Do it live in terminal 2:</b> <code>cp -r ~/demo-kit/app_outline .</code> ("this is the Lecture 1 homework, dropped into the project"). In your editor, open <code>pages/home/user_story.md</code> next to <code>home.png</code>.</p>
     <p>Then start Claude: <code>claude</code>. Type <code>/mcp</code> (three servers) and <code>/skills</code> (four skills) so they see Claude picked up everything you just installed. Taste shows as design-taste-frontend.</p>
@@ -239,6 +251,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </div>
   <p class="bottomline" style="margin-top:28px">Full text: demo-kit/prompt.md. Paste it now and let Claude start.</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> We read the build prompt part by part, then paste it in.</p>
     <p><b>Kick off the live build here.</b> Paste the <b>short 2-phase version</b> from demo-kit/prompt.md (bottom of the file). Claude will summarize the journey and propose phases. Read the phases out loud and <b>approve them</b> ("I'm the architect"). When Claude first asks to edit a file, read the request out loud, then pick <b>"Yes, allow all edits during this session"</b> so it doesn't stop on every file. It will still ask before running commands and using Playwright; approve those as they come. Then let phase 1 run while we do the quiz.</p>
     <p>"This prompt isn't the only way. Use everything you learned about prompt engineering."</p>
   </aside>
@@ -248,6 +261,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   <img src="../diagrams/L2-04-build-loop.png" alt="Build loop: plan, build one phase, screenshot, compare with wireframe, you approve, git commit, next phase">
   <div class="src">diagrams/L2-04-build-loop.tldr</div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> A picture of the loop we'll follow: Claude builds a phase, we check it, we give feedback.</p>
     <p>While Claude works: this is the loop it's running. The human-in-the-loop step (purple) is the important one. Small phases mean small context and fewer mistakes, and a bad phase only rolls back one commit.</p>
   </aside>
 </section>
@@ -262,6 +276,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
   </ol>
   <p class="muted small" style="margin-top:24px">Page: activity-whos-responsible/index.html</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Activity while Claude builds: a problem appears, and everyone names the tool responsible.</p>
     <p>The first 8 cards are the core set, about 30 seconds each. <b>Stop as soon as Claude finishes phase 1</b>; cards 9–14 are extras if it's still working. Space reveals, arrows move. If Claude needs an approval mid-quiz, pause and do it on screen, which makes the human-in-the-loop idea concrete.</p>
     <p>Card 8 ("refresh wipes my data") is a trick: nobody's broken, that's expected without a database. Good bridge to the next units.</p>
   </aside>
@@ -274,6 +289,7 @@ claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest
     <div class="how">Compare the Playwright screenshot to home.png. Look at layout, missing elements, empty state.</div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Back to Claude: does phase 1 match the wireframe, and what feedback would we give?</p>
     <p>Open localhost:5173 and put it next to <code>app_outline/pages/home/home.png</code>. Take 2–3 pieces of feedback and type one into Claude as phase feedback. Then approve.</p>
     <p><b>If phase 1 isn't done by ~34 min:</b> don't wait. Open the backup app (Liftlog on the class site, or <code>demo-kit/backup-liftlog</code> with <code>npm run dev</code>) and do the comparison with it. Let Claude keep going in the background. Same spec, already built.</p>
   </aside>
@@ -302,6 +318,7 @@ gh repo create liftlog --public --source=. --push</pre>
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> We save every approved phase: CLAUDE.md, git commits and a GitHub repo.</p>
     <p><b>/init first.</b> Claude in terminal 2 is busy with phase 2, so open a third terminal in <code>~/demos/liftlog</code>, run <code>claude</code>, type <code>/init</code>, and approve the CLAUDE.md write. Scroll through it out loud: "Tomorrow I close this terminal and Claude forgets everything. This file is what it reads first next time." It now describes the real app (routes, folders, browser-only state, commands), which is why we waited until after phase 1. Short on time? Skip it and just say it. Then <code>/exit</code>.</p>
     <p><b>Then git, live.</b> In that same third terminal in <code>~/demos/liftlog</code> and run the three git lines (the project isn't a git repo yet). Vite already made a .gitignore, so node_modules stays out. You can also ask Claude: "commit this phase with a descriptive message."</p>
     <p>Explain <code>gh repo create</code> instead of running it, unless you want a public repo of the demo.</p>
@@ -335,6 +352,7 @@ You are a Senior Front-End Engineer…</pre>
     </div>
   </div>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> We package what worked as a front-end sub-agent.</p>
     <p><b>Optional live step (30 sec):</b> <code>mkdir -p .claude/agents &amp;&amp; cp ~/demo-kit/.claude/agents/front-end-agent.md .claude/agents/</code>, then <code>/agents</code> in Claude to show it's registered.</p>
     <p>Full file: demo-kit/.claude/agents/front-end-agent.md. Subagents preload skills by the <b>name</b> field inside each SKILL.md. The Taste skill's folder is <code>taste-skill</code> but its name is <code>design-taste-frontend</code>, so that's what goes in the list.</p>
   </aside>
@@ -349,6 +367,7 @@ You are a Senior Front-End Engineer…</pre>
   </ol>
   <p class="bottomline">Checklist: skills folder ✓ · MCPs connected ✓ · app_outline ✓ · phases approved ✓ · pushed to GitHub ✓</p>
   <aside class="notes">
+    <p class="plan"><b>The plan:</b> Walk through Homework Part II.</p>
     <p>Say the order out loud: your own app first, then the certification, then the Netflix clone if there's time.</p>
     <p>Point students at the "Set up Claude Code" section of the class site: the skills one-liner and the three MCP commands you ran today.</p>
   </aside>
@@ -360,6 +379,9 @@ You are a Senior Front-End Engineer…</pre>
     <div class="q">Name one thing you'll put in your app_outline that Claude couldn't have guessed.</div>
     <div class="how">That's the part only you can do.</div>
   </div>
+  <aside class="notes">
+    <p class="plan"><b>The plan:</b> Exit ticket: one thing for their app_outline that Claude couldn't have guessed.</p>
+  </aside>
 </section>
 
 </div>
